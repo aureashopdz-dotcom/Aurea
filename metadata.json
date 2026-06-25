@@ -1,0 +1,6 @@
+{
+  "name": "AURA Fine Jewelry Landing Page",
+  "description": "Premium conversion-focused product landing page for The L'Amour Aura Necklace, styled with custom interactive free gift progression milestones, verified testimonials, side-by-side comparison matrixes, and live scarcity countdown clocks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

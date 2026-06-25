@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Open Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: "Playfair Display", "Open Sans", ui-serif, Georgia, serif;
+  --color-primary: #FF6C84;
+  --color-primary-light: #FFD6DD;
+  --color-peach: #FD8935;
+  --color-off-white: #FFF4F3;
+
+  /* Custom animations */
+  --animate-fadeInUp: fadeInUp 0.4s ease-out forwards;
+  --animate-fadeInRight: fadeInRight 0.35s ease-out forwards;
+  --animate-scale: scaleIn 0.25s ease-out forwards;
+  --animate-pageFade: pageFade 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply font-sans bg-white text-black antialiased selection:bg-primary/20 selection:text-black;
+    /* Prevent horizontal overflow on mobile */
+    overflow-x: hidden;
+    /* Safe area padding for iOS notch / dynamic island */
+    padding-top: env(safe-area-inset-top);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+    /* Prevent iOS bounce scroll overscroll causing layout shifts */
+    overscroll-behavior-y: contain;
+  }
+
+  /* Ensure images don't cause horizontal overflow */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Custom Keyframes & Animations */
+@keyframes pulse-custom {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pageFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pulse-circle {
+  animation: pulse-custom 2s infinite ease-in-out;
+}
+
+/* Smooth scrolling offset for sticky headers — applied via JS offset */
+@media (max-width: 639px) {
+  [id] {
+    scroll-margin-top: 130px;
+  }
+}
+
+@media (min-width: 640px) {
+  [id] {
+    scroll-margin-top: 140px;
+  }
+}
