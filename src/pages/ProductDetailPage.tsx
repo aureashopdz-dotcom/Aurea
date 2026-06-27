@@ -134,14 +134,14 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
         total: subtotal
       };
     } else {
-      // Buy 3 Get 1 Free + Free Shipping (pay for 3, receive 4)
+      // Buy 3 — 1 of the 3 is free (pay for 2, receive 3) + Free Shipping
       return {
-        qty: 4,
-        title: lang === "ar" ? "شراء 3 واحصل على 1 مجاناً + شحن مجاني" : "Buy 3 Get 1 Free + Free Shipping",
-        subtotal: baseVal * 3,
-        compareSubtotal: compVal * 4,
+        qty: 3,
+        title: lang === "ar" ? "3 قلادات (واحدة مجانية) + شحن مجاني" : "3 Necklaces (1 is Free) + Free Shipping",
+        subtotal: baseVal * 2,
+        compareSubtotal: compVal * 3,
         shipping: 0,
-        total: baseVal * 3
+        total: baseVal * 2
       };
     }
   };
@@ -420,13 +420,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
                               className="accent-[#FF6C84] w-4 h-4 cursor-pointer"
                             />
                             <div className="text-right">
-                              <p className="font-extrabold text-slate-900">{lang === "ar" ? "اشتري 3 واحصل على 1 مجاناً (4 قلادات)" : "Buy 3 Get 1 Free (4 Necklaces)"}</p>
+                              <p className="font-extrabold text-slate-900">{lang === "ar" ? "3 قلادات (واحدة مجانية)" : "3 Necklaces (1 is Free)"}</p>
                               <p className="text-[10px] text-emerald-600 font-bold">{lang === "ar" ? "شحن مجاني!" : "FREE SHIPPING!"}</p>
                             </div>
                           </div>
                           <div className="text-left font-black text-slate-800 mt-1.5">
-                            <p className="text-base text-[#FF6C84]">{formatPrice(product.price * 3)}</p>
-                            <p className="text-[10px] text-slate-400 line-through">{formatPrice(product.comparePrice * 4)}</p>
+                            <p className="text-base text-[#FF6C84]">{formatPrice(product.price * 2)}</p>
+                            <p className="text-[10px] text-slate-400 line-through">{formatPrice(product.comparePrice * 3)}</p>
                           </div>
                         </button>
                       </div>
