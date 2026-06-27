@@ -118,8 +118,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
         title: lang === "ar" ? "قلادة واحدة" : "1 Piece",
         subtotal: baseVal,
         compareSubtotal: compVal,
-        shipping: 600,
-        total: baseVal + 600
+        shipping: 450,
+        total: baseVal + 450
       };
     } else if (selectedBundle === "2") {
       // Buy 2: Free shipping + 200 DA off 2nd necklace
@@ -361,7 +361,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
                             />
                             <div className="text-right">
                               <p className="font-extrabold text-slate-900">{lang === "ar" ? "1 قلادة" : "1 Necklace"}</p>
-                              <p className="text-[10px] text-slate-500">{lang === "ar" ? "+ 600 د.ج الشحن" : "+ 600 DA Shipping"}</p>
+                              <p className="text-[10px] text-slate-500">{lang === "ar" ? "+ 450 د.ج الشحن" : "+ 450 DA Shipping"}</p>
                             </div>
                           </div>
                           <div className="text-left font-black text-slate-800">

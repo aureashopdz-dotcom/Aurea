@@ -35,7 +35,7 @@ export const SlideCart: React.FC<SlideCartProps> = ({
   const [errorMsg, setErrorMsg] = useState("");
 
   const itemsPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shippingFee = itemsPrice > 3000 ? 0 : 500;
+  const shippingFee = itemsPrice > 3000 ? 0 : 450;
   const grandTotal = itemsPrice + shippingFee;
 
   const formatPrice = (amount: number) => {
