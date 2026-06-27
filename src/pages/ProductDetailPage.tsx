@@ -122,22 +122,26 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
         total: baseVal + 600
       };
     } else if (selectedBundle === "2") {
+      // Buy 2: Free shipping + 200 DA off 2nd necklace
+      const discountedSecond = baseVal - 200;
+      const subtotal = baseVal + discountedSecond;
       return {
         qty: 2,
-        title: lang === "ar" ? "قلادتين (خصم 50% على الثانية)" : "2 Pieces (50% Off 2nd)",
-        subtotal: Math.round(baseVal * 1.5),
+        title: lang === "ar" ? "قلادتين (شحن مجاني + 200 د.ج خصم على الثانية)" : "2 Necklaces (Free Shipping + 200 DA Off 2nd)",
+        subtotal,
         compareSubtotal: compVal * 2,
-        shipping: 300,
-        total: Math.round(baseVal * 1.5) + 300
+        shipping: 0,
+        total: subtotal
       };
     } else {
+      // Buy 3 Get 1 Free + Free Shipping (pay for 3, receive 4)
       return {
-        qty: 3,
-        title: lang === "ar" ? "3 قلادات (الثالثة مجانية)" : "3 Pieces (Buy 2 Get 1 Free)",
-        subtotal: baseVal * 2,
-        compareSubtotal: compVal * 3,
+        qty: 4,
+        title: lang === "ar" ? "شراء 3 واحصل على 1 مجاناً + شحن مجاني" : "Buy 3 Get 1 Free + Free Shipping",
+        subtotal: baseVal * 3,
+        compareSubtotal: compVal * 4,
         shipping: 0,
-        total: baseVal * 2
+        total: baseVal * 3
       };
     }
   };
@@ -375,7 +379,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
                           }`}
                         >
                           <div className="absolute top-0 left-0 bg-emerald-500 text-white font-black text-[8px] uppercase tracking-wider px-2 py-0.5 rounded-br-lg">
-                            {lang === "ar" ? "خصم التوصيل + الثانية بنصف السعر!" : "Half Delivery + 50% Off 2nd!"}
+                            {lang === "ar" ? "شحن مجاني + 200 د.ج خصم!" : "Free Shipping + 200 DA Off!"}
                           </div>
                           <div className="flex items-center gap-3 mt-1.5">
                             <input
@@ -387,11 +391,11 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
                             />
                             <div className="text-right">
                               <p className="font-extrabold text-slate-900">{lang === "ar" ? "2 قلادة (عرض التوفير)" : "2 Necklaces (Savings Bundle)"}</p>
-                              <p className="text-[10px] text-slate-500">{lang === "ar" ? "+ 300 د.ج التوصيل (مخفض للنصف!)" : "+ 300 DA Shipping (Cut in half!)"}</p>
+                              <p className="text-[10px] text-emerald-600 font-bold">{lang === "ar" ? "شحن مجاني + 200 د.ج خصم على الثانية!" : "Free shipping + 200 DA off 2nd necklace!"}</p>
                             </div>
                           </div>
                           <div className="text-left font-black text-slate-800 mt-1.5">
-                            <p className="text-base text-[#FF6C84]">{formatPrice(Math.round(product.price * 1.5))}</p>
+                            <p className="text-base text-[#FF6C84]">{formatPrice(product.price + (product.price - 200))}</p>
                             <p className="text-[10px] text-slate-400 line-through">{formatPrice(product.comparePrice * 2)}</p>
                           </div>
                         </button>
@@ -416,13 +420,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
                               className="accent-[#FF6C84] w-4 h-4 cursor-pointer"
                             />
                             <div className="text-right">
-                              <p className="font-extrabold text-slate-900">{lang === "ar" ? "3 قلادات (اشتري 2 واحصل على 1 مجاناً)" : "3 Necklaces (Buy 2 Get 1 Free)"}</p>
+                              <p className="font-extrabold text-slate-900">{lang === "ar" ? "اشتري 3 واحصل على 1 مجاناً (4 قلادات)" : "Buy 3 Get 1 Free (4 Necklaces)"}</p>
                               <p className="text-[10px] text-emerald-600 font-bold">{lang === "ar" ? "شحن مجاني!" : "FREE SHIPPING!"}</p>
                             </div>
                           </div>
                           <div className="text-left font-black text-slate-800 mt-1.5">
-                            <p className="text-base text-[#FF6C84]">{formatPrice(product.price * 2)}</p>
-                            <p className="text-[10px] text-slate-400 line-through">{formatPrice(product.comparePrice * 3)}</p>
+                            <p className="text-base text-[#FF6C84]">{formatPrice(product.price * 3)}</p>
+                            <p className="text-[10px] text-slate-400 line-through">{formatPrice(product.comparePrice * 4)}</p>
                           </div>
                         </button>
                       </div>

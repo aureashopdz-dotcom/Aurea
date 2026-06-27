@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import { ShoppingBag, Menu, X, Globe } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { TRANSLATIONS } from "../data/translations";
 
 interface HeaderProps {
   lang: "ar" | "en";
   setLang: (lang: "ar" | "en") => void;
-  cartCount: number;
-  onCartToggle: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ lang, setLang, cartCount, onCartToggle }) => {
+export const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -62,7 +60,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, cartCount, onCart
   return (
     <header
       id="main-header"
-      className="w-full bg-white/97 backdrop-blur-md border-b border-[#FFD6DD]/40 sticky top-9 sm:top-10 z-40 shadow-sm transition-all duration-300"
+      className="w-full bg-white/97 backdrop-blur-md border-b border-[#FFD6DD]/40 sticky top-0 z-40 shadow-sm transition-all duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20 sm:h-24">
 
@@ -111,7 +109,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, cartCount, onCart
           </Link>
         </div>
 
-        {/* Right: Language + Cart */}
+        {/* Right: Language Switcher */}
         <div className="flex-1 flex items-center justify-end gap-3 sm:gap-4">
 
           {/* Language Switcher */}
@@ -122,20 +120,6 @@ export const Header: React.FC<HeaderProps> = ({ lang, setLang, cartCount, onCart
           >
             <Globe className="w-3.5 h-3.5" />
             <span>{lang === "ar" ? "EN" : "عربي"}</span>
-          </button>
-
-          {/* Cart */}
-          <button
-            onClick={onCartToggle}
-            className="relative p-2.5 text-slate-600 hover:text-[#FF6C84] hover:bg-[#FFF4F3] rounded-full transition-all duration-200 flex items-center justify-center cursor-pointer"
-            aria-label="Shopping Cart"
-          >
-            <ShoppingBag className="w-5 h-5" />
-            {cartCount > 0 && (
-              <span className="absolute top-0.5 right-0.5 bg-[#FF6C84] text-white text-[8px] font-black w-4 h-4 rounded-full flex items-center justify-center border border-white shadow-sm">
-                {cartCount}
-              </span>
-            )}
           </button>
         </div>
       </div>

@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Star, ArrowRight, Sparkles, Filter, SlidersHorizontal, Check, X, ShoppingCart } from "lucide-react";
+import { Star, ArrowRight, Sparkles, Filter, SlidersHorizontal, Check, X } from "lucide-react";
 import { CherryBlossomParticles } from "../components/CherryBlossomParticles";
 import { PRODUCTS } from "../data/products";
 import { TRANSLATIONS } from "../data/translations";
-import { CartItem } from "../types";
 
 interface ShopPageProps {
   lang: "ar" | "en";
-  onAddToCart: (item: CartItem) => void;
 }
 
-export const ShopPage: React.FC<ShopPageProps> = ({ lang, onAddToCart }) => {
+export const ShopPage: React.FC<ShopPageProps> = ({ lang }) => {
   const products = Object.values(PRODUCTS);
   const t = TRANSLATIONS[lang];
 
@@ -290,24 +288,13 @@ export const ShopPage: React.FC<ShopPageProps> = ({ lang, onAddToCart }) => {
                           >
                             <span>{lang === "ar" ? "عرض التفاصيل" : "View Details"}</span>
                           </Link>
-                          <button
-                            onClick={(e) => {
-                              e.preventDefault();
-                              onAddToCart({
-                                productId: product.id,
-                                name: product.name,
-                                nameAr: product.nameAr,
-                                price: product.price,
-                                image: product.images[0],
-                                quantity: 1,
-                                chain: product.chainOptions ? product.chainOptions[0] : "Silver"
-                              });
-                            }}
+                          <Link
+                            to={`/shop/${product.id}`}
                             className="flex-1 bg-gradient-to-r from-[#FF6C84] to-[#FF8FAB] hover:from-[#FF5A73] hover:to-[#FF6C84] text-white font-extrabold text-xs py-3.5 rounded-2xl shadow-sm transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-1.5 cursor-pointer"
                           >
-                            <ShoppingCart className="w-3.5 h-3.5" />
-                            <span>{lang === "ar" ? "أضف للسلة" : "Add to Cart"}</span>
-                          </button>
+                            <span>{lang === "ar" ? "اشتري الآن" : "Buy Now"}</span>
+                            <ArrowRight className={`w-3.5 h-3.5 ${lang === 'ar' ? 'rotate-180' : ''}`} />
+                          </Link>
                         </div>
                       </div>
                     </div>
