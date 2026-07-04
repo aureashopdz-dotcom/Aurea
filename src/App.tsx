@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
@@ -13,9 +13,17 @@ export default function App() {
   const { pathname } = useLocation();
   const [lang, setLang] = useState<"ar" | "en">("ar");
 
+  // Track route changes — skip the very first mount because
+  // the base code in index.html already fires fbq('track', 'PageView').
+  // This fires on every subsequent client-side navigation.
+  const isFirstRender = useRef(true);
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    // Fire Meta Pixel PageView on every client-side navigation
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return; // HTML base code already fired PageView for this load
+    }
+    // SPA route change — fire a fresh PageView
     trackPageView();
   }, [pathname]);
 
