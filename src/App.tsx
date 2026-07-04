@@ -7,17 +7,16 @@ import { HomePage } from "./pages/HomePage";
 import { ShopPage } from "./pages/ShopPage";
 import { ProductDetailPage } from "./pages/ProductDetailPage";
 import { ContactPage } from "./pages/ContactPage";
+import { trackPageView } from "./utils/metaPixel";
 
 export default function App() {
   const { pathname } = useLocation();
   const [lang, setLang] = useState<"ar" | "en">("ar");
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant"
-    });
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    // Fire Meta Pixel PageView on every client-side navigation
+    trackPageView();
   }, [pathname]);
 
   useEffect(() => {

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { X, Plus, Minus, Lock, ShoppingBag, CheckCircle, HelpCircle, ChevronDown } from "lucide-react";
 import { CartItem, ProductVariant, FreeGift } from "../types";
 import wilayasData from "../data/wilayas.json";
 import communesData from "../data/communes.json";
+import { generateEventId, trackInitiateCheckout, trackPurchase } from "../utils/metaPixel";
 
 interface WilayaItem {
   id: string;
@@ -53,6 +54,18 @@ export const SlideCart: React.FC<SlideCartProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+
+  // ── Meta Pixel event IDs ──
+  const initiateCheckoutEventId = useRef(generateEventId());
+  const purchaseEventId = useRef(generateEventId());
+  const checkoutTouched = useRef(false);
+
+  // Regenerate event IDs on mount or when cart changes
+  useEffect(() => {
+    initiateCheckoutEventId.current = generateEventId();
+    purchaseEventId.current = generateEventId();
+    checkoutTouched.current = false;
+  }, [cart.length]);
 
   const itemsPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shippingFee = itemsPrice > 3000 ? 0 : 450;
@@ -141,6 +154,7 @@ export const SlideCart: React.FC<SlideCartProps> = ({
       bundle: "Shopping Cart Checkout",
       totalPrice: formatPrice(grandTotal),
       lang,
+      purchaseEventId: purchaseEventId.current,
     };
 
 
@@ -153,6 +167,13 @@ export const SlideCart: React.FC<SlideCartProps> = ({
 
       const result = await response.json();
       if (result.success) {
+        // browser Purchase event matching CAPI
+        trackPurchase({
+          productId: cart.map(i => i.productId).join(","),
+          productName: itemSummary,
+          value: grandTotal,
+          eventId: purchaseEventId.current,
+        });
         setSubmitted(true);
         // Clear inputs
         setFullName("");
@@ -337,6 +358,17 @@ export const SlideCart: React.FC<SlideCartProps> = ({
                           required
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
+                          onFocus={() => {
+                            if (!checkoutTouched.current) {
+                              checkoutTouched.current = true;
+                              trackInitiateCheckout({
+                                productId: cart.map(i => i.productId).join(","),
+                                productName: cart.map(i => i.name).join(", "),
+                                value: grandTotal,
+                                eventId: initiateCheckoutEventId.current,
+                              });
+                            }
+                          }}
                           placeholder={isAr ? "الاسم واللقب..." : "Your name"}
                           className="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-[#FF6C84] bg-white"
                         />

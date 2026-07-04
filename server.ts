@@ -8,8 +8,39 @@ app.use(express.json());
 const resend = new Resend(process.env.RESEND_API_KEY);
 const ORDER_EMAIL = process.env.ORDER_EMAIL || 'aurea.shop.dz@gmail.com';
 
+import crypto from 'crypto';
+
+// ── Meta CAPI helper ─────────────────────────────────────────────────────────
+const META_PIXEL_ID = process.env.META_PIXEL_ID || '2149341695632178';
+const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN || '';
+
+const sha256 = (value: string): string =>
+  crypto.createHash('sha256').update(value.trim().toLowerCase()).digest('hex');
+
+const sendCapiEvent = async (payload: object): Promise<void> => {
+  if (!META_ACCESS_TOKEN) {
+    console.warn('[AUREA CAPI] META_ACCESS_TOKEN not set — skipping CAPI.');
+    return;
+  }
+  try {
+    const url = `https://graph.facebook.com/v20.0/${META_PIXEL_ID}/events?access_token=${META_ACCESS_TOKEN}`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const json = await res.json();
+    console.log('[AUREA CAPI] Response:', JSON.stringify(json));
+  } catch (err: any) {
+    console.error('[AUREA CAPI] Error:', err.message);
+  }
+};
+
 app.post('/api/order', async (req, res) => {
-  const { name, phone, wilaya, commune, productName, chain, bundle, totalPrice, lang } = req.body;
+  const {
+    name, phone, wilaya, commune, productName, chain, bundle,
+    totalPrice, lang, purchaseEventId,
+  } = req.body;
 
   if (!name || !phone || !wilaya || !commune || !productName) {
     return res.status(400).json({ success: false, error: 'Missing required fields' });
@@ -99,9 +130,39 @@ app.post('/api/order', async (req, res) => {
     });
 
     console.log('[AUREA] Email sent:', result);
+
+    // ── Meta Conversion API — Purchase event ──────────────────────────────
+    // Normalise phone: strip spaces/dashes, convert local prefix to E.164 style
+    const rawPhone = String(phone).replace(/[\s\-\.]/g, '');
+    const normPhone = rawPhone.startsWith('0') ? `213${rawPhone.slice(1)}` : rawPhone;
+
+    // Parse numeric value from totalPrice string (e.g. "2700 DA" → 2700)
+    const numericValue = parseFloat(String(totalPrice).replace(/[^\d.]/g, '')) || 0;
+
+    await sendCapiEvent({
+      data: [
+        {
+          event_name: 'Purchase',
+          event_time: Math.floor(Date.now() / 1000),
+          event_id: purchaseEventId || `order-${Date.now()}`,
+          action_source: 'website',
+          user_data: {
+            ph: [sha256(normPhone)], // hashed phone (E.164 without +)
+            country: [sha256('dz')], // Algeria
+          },
+          custom_data: {
+            currency: 'DZD',
+            value: numericValue,
+            content_name: productName,
+            content_type: 'product',
+          },
+        },
+      ],
+    });
+
     return res.json({ success: true, id: result.data?.id });
   } catch (err: any) {
-    console.error('[AUREA] Resend error:', err.message);
+    console.error('[AUREA] Order error:', err.message);
     return res.status(500).json({ success: false, error: err.message });
   }
 });

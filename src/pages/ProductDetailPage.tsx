@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
+import { generateEventId, trackViewContent, trackInitiateCheckout, trackPurchase } from "../utils/metaPixel";
 import {
   Star, CheckCircle, ShoppingBag, CreditCard, Feather, Gift, Palette,
   Sparkles, ShieldCheck, ArrowRight, HelpCircle, Plus, Minus, Check, X,
@@ -84,6 +85,12 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
   const [timeLeft, setTimeLeft] = useState(885); // 14 mins 45 secs
   const [stockCount, setStockCount] = useState(7);
 
+  // ── Meta Pixel event IDs (generated once per product load for deduplication) ──
+  const viewContentEventId = useRef(generateEventId());
+  const initiateCheckoutEventId = useRef(generateEventId());
+  const purchaseEventId = useRef(generateEventId());
+  const checkoutTouched = useRef(false); // prevent firing InitiateCheckout multiple times
+
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => (prev > 0 ? prev - 1 : 885));
@@ -107,6 +114,22 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
     setPhoneNumber("");
     setSelectedWilayaCode("");
     setCommune("");
+    // Regenerate event IDs each time a new product is loaded
+    viewContentEventId.current = generateEventId();
+    initiateCheckoutEventId.current = generateEventId();
+    purchaseEventId.current = generateEventId();
+    checkoutTouched.current = false;
+  }, [product?.id]);
+
+  // ── ViewContent: fires once when the product page is loaded ─────────────
+  useEffect(() => {
+    if (!product) return;
+    trackViewContent({
+      productId: product.id,
+      productName: product.name,
+      value: product.price,
+      eventId: viewContentEventId.current,
+    });
   }, [product?.id]);
 
   if (!product) {
@@ -286,6 +309,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
       bundle: currentBundle.title,
       totalPrice: lang === "ar" ? `${currentBundle.total} د.ج` : `${currentBundle.total} DA`,
       lang,
+      // ── CAPI deduplication event ID ──
+      purchaseEventId: purchaseEventId.current,
     };
 
     try {
@@ -297,6 +322,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
 
       const result = await response.json();
       if (result.success) {
+        // ── Browser Purchase pixel (deduped via eventID matching CAPI) ────────
+        trackPurchase({
+          productId: product.id,
+          productName: product.name,
+          value: currentBundle.total,
+          eventId: purchaseEventId.current,
+        });
         setSubmitted(true);
         scrollToForm();
       } else {
@@ -607,6 +639,17 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
                           placeholder={lang === "ar" ? "الاسم الثلاثي بالكامل" : "e.g. Amira Boudiaf"}
                           value={fullName}
                           onChange={e => setFullName(e.target.value)}
+                          onFocus={() => {
+                            if (!checkoutTouched.current) {
+                              checkoutTouched.current = true;
+                              trackInitiateCheckout({
+                                productId: product.id,
+                                productName: product.name,
+                                value: currentBundle.total,
+                                eventId: initiateCheckoutEventId.current,
+                              });
+                            }
+                          }}
                           className="border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF6C84]/30 focus:border-[#FF6C84] transition-all"
                         />
                       </div>
