@@ -4,6 +4,7 @@ import img3 from "../assets/hummingbird-product-3.jpg";
 import batImg1 from "../../Images/730620721_2517454658726725_8868282425921152749_n.jpg";
 import batImg2 from "../../Images/728744240_2358611457882079_326585741473672331_n.jpg";
 import batImg3 from "../../Images/729566830_1598360015191540_8285010084839496162_n.jpg";
+import batImgBack from "../../Images/4cf75542-1f46-4707-8dad-22bcb2ebdb91.png";
 import revHeart1 from "../../Images/REVIEWS (1).jpg";
 import revHeart2 from "../../Images/REVIEWS (2).jpg";
 import revHeart3 from "../../Images/REVIEWS (3).jpg";
@@ -378,7 +379,7 @@ export const PRODUCTS: Record<string, ProductData> = {
     subtitleAr: "قلب تشريحي غوطي · سلسلة كروية فضية · 50 سم",
     price: 1900,
     comparePrice: 3800,
-    images: [batImg1, batImg2, batImg3],
+    images: [batImg1, batImg2, batImg3, batImgBack],
     badge: "Dark Edition",
     badgeAr: "إصدار مظلم",
     category: "Necklaces",

@@ -369,7 +369,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
                   {lang === "ar" ? product.badgeAr : product.badge}
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-3">
+              <div className={`grid gap-3 ${product.images.length === 4 ? "grid-cols-4" : "grid-cols-3"}`}>
                 {product.images.map((img, idx) => (
                   <button
                     key={idx}
@@ -842,6 +842,81 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
           </div>
         </div>
       </section>
+
+      {/* ─── BACK DESIGN SPOTLIGHT (Bat Heart Necklace Only) ─── */}
+      {product.id === "bat-heart-necklace" && (
+        <section id="back-design-spotlight" className="w-full bg-[#0a0506] py-16 sm:py-24 text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#4a121a_0%,transparent_60%)] opacity-40" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+              
+              {/* Text info */}
+              <div className="flex flex-col gap-6 order-2 lg:order-1">
+                <div className="flex items-center gap-2 justify-start">
+                  <span className="w-1 h-6 rounded-full bg-rose-600" />
+                  <span className="text-xs font-black text-rose-500 uppercase tracking-widest">
+                    {lang === "ar" ? "تفاصيل التصميم الخلفي" : "Back Design Details"}
+                  </span>
+                </div>
+                <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight font-heading justify-start flex">
+                  {lang === "ar" ? "تصميم خلفي قوطي فريد ومحفور" : "Detailed Gothic Engraving on the Back"}
+                </h2>
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed justify-start text-right lg:text-left">
+                  {lang === "ar" 
+                    ? "لا يقتصر جمال قلادة قلب الخفاش على واجهتها فحسب، بل يتميز الجزء الخلفي بتصميم محفور ومتقن ومغطى بالكامل بنقوش رائعة تمنحه مظهراً قوطياً غامضاً ومميزاً من كل زاوية. يتيح لك هذا التصميم ارتداء القلادة على الجهتين بثقة وأناقة كاملة."
+                    : "The Bat Heart Necklace is stunning from every angle. The reverse side features a beautifully textured, gothic engraving that complements the anatomical front design. Crafted with equal attention to detail, so you can show off your style with confidence whichever way it spins."}
+                </p>
+                
+                {/* Micro-features of the back */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                  <div className="flex items-start gap-3 bg-white/5 border border-white/10 rounded-2xl p-4">
+                    <CheckCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                    <div className="text-right lg:text-left">
+                      <h4 className="font-bold text-sm text-white">
+                        {lang === "ar" ? "نقش قوطي متكامل" : "Intricate Gothic Engraving"}
+                      </h4>
+                      <p className="text-xs text-slate-400 mt-1">
+                        {lang === "ar" ? "تفاصيل بارزة ومصقولة بعناية فائقة" : "Finely detailed textures and patterns across the back."}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3 bg-white/5 border border-white/10 rounded-2xl p-4">
+                    <CheckCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                    <div className="text-right lg:text-left">
+                      <h4 className="font-bold text-sm text-white">
+                        {lang === "ar" ? "ملمس مريح" : "Smooth, Comfortable Fit"}
+                      </h4>
+                      <p className="text-xs text-slate-400 mt-1">
+                        {lang === "ar" ? "سطح مصقول ومستوٍ ليستقر بنعومة على بشرتك" : "Polished edges and flat relief ensure a comfortable, irritation-free wear."}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Image */}
+              <div className="relative order-1 lg:order-2 flex justify-center">
+                <div className="relative rounded-3xl overflow-hidden aspect-[4/5] border border-white/10 shadow-2xl max-w-sm w-full">
+                  <img 
+                    src={product.images[3] || product.images[product.images.length - 1]} 
+                    alt={lang === "ar" ? "التصميم الخلفي لقلادة قلب الخفاش" : "Bat Heart Necklace Back Side Design"} 
+                    className="w-full h-full object-cover object-center" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <div className={`absolute bottom-6 ${lang === 'ar' ? 'right-6' : 'left-6'} bg-slate-900/90 text-white text-[10px] font-extrabold px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1.5 backdrop-blur-sm border border-white/10`}>
+                    <Layers className="w-3.5 h-3.5 text-rose-500" />
+                    {lang === "ar" ? "منظر الجهة الخلفية" : "Back View / Reverse Side"}
+                  </div>
+                </div>
+                {/* Ambient glow behind image */}
+                <div className="absolute -inset-4 -z-10 rounded-3xl opacity-20 blur-3xl bg-rose-600/30" />
+              </div>
+
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ─── STYLE SPOTLIGHT ─── */}
       <section id="style-spotlight" className="relative w-full bg-gradient-to-b from-[#FFF9FB] to-white py-16 sm:py-24 overflow-hidden">
