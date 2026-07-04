@@ -1,6 +1,26 @@
 import React, { useState } from "react";
-import { X, Plus, Minus, Lock, ShoppingBag, CheckCircle, HelpCircle } from "lucide-react";
+import { X, Plus, Minus, Lock, ShoppingBag, CheckCircle, HelpCircle, ChevronDown } from "lucide-react";
 import { CartItem, ProductVariant, FreeGift } from "../types";
+import wilayasData from "../data/wilayas.json";
+import communesData from "../data/communes.json";
+
+interface WilayaItem {
+  id: string;
+  code: string;
+  name: string;
+  ar_name: string;
+}
+
+interface CommuneItem {
+  id: string;
+  post_code: string;
+  name: string;
+  wilaya_id: string;
+  ar_name: string;
+}
+
+const WILAYAS = wilayasData as WilayaItem[];
+const COMMUNES = communesData as CommuneItem[];
 
 interface SlideCartProps {
   isOpen: boolean;
@@ -42,10 +62,64 @@ export const SlideCart: React.FC<SlideCartProps> = ({
     return isAr ? `${amount} د.ج` : `${amount} DA`;
   };
 
+  // ── Algerian Phone Validator ───────────────────────────────────────────────
+  const validateAlgerianPhone = (raw: string): { valid: boolean; reason: string } => {
+    let n = raw.replace(/[\s\-\.]/g, "");
+    if (n.startsWith("+213")) n = "0" + n.slice(4);
+    else if (n.startsWith("00213")) n = "0" + n.slice(5);
+    else if (n.startsWith("213") && n.length === 12) n = "0" + n.slice(3);
+
+    if (!/^\d{10}$/.test(n)) {
+      return { valid: false, reason: isAr
+        ? "رقم الهاتف يجب أن يتكون من 10 أرقام (مثال: 0551 234 567)"
+        : "Phone number must be 10 digits (e.g. 0551 234 567)" };
+    }
+
+    // Must start with a valid Algerian prefix:
+    // Mobile: 05 (Ooredoo), 06 (Mobilis/Djezzy), 07 (Mobilis/Ooredoo)
+    // Landline: 02 (Centre), 03 (East), 04 (West)
+    const prefix2 = n.slice(0, 2);
+    if (!["02", "03", "04", "05", "06", "07"].includes(prefix2)) {
+      return { valid: false, reason: isAr
+        ? "رقم غير صالح. يجب أن يبدأ بـ 02 أو 03 أو 04 (ثابت) أو 05 أو 06 أو 07 (جوال)"
+        : "Invalid number. Must start with 02–04 (landline) or 05–07 (mobile)" };
+    }
+
+    if (/^.(.)\1{8}$/.test(n)) {
+      return { valid: false, reason: isAr
+        ? "يبدو أن الرقم مزيف. يرجى إدخال رقم هاتف حقيقي."
+        : "This looks like a fake number. Please enter a real phone number." };
+    }
+
+    const digits = n.slice(2);
+    let ascending = 0; let descending = 0;
+    for (let i = 1; i < digits.length; i++) {
+      if (Number(digits[i]) === Number(digits[i - 1]) + 1) ascending++;
+      else ascending = 0;
+      if (Number(digits[i]) === Number(digits[i - 1]) - 1) descending++;
+      else descending = 0;
+      if (ascending >= 6 || descending >= 6) {
+        return { valid: false, reason: isAr
+          ? "يبدو أن الرقم مزيف. يرجى إدخال رقم هاتف حقيقي."
+          : "This looks like a fake number. Please enter a real phone number." };
+      }
+    }
+
+    return { valid: true, reason: "" };
+  };
+
   const handleCODOrder = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setErrorMsg("");
+
+    // ── Phone validation ───────────────────────────────────────────────────
+    const phoneCheck = validateAlgerianPhone(phoneNumber);
+    if (!phoneCheck.valid) {
+      setErrorMsg(phoneCheck.reason);
+      return;
+    }
+
+    setIsSubmitting(true);
 
     const activeWilayaObj = WILAYAS.find(w => w.code === selectedWilayaCode);
     const wilayaString = activeWilayaObj 
@@ -68,6 +142,7 @@ export const SlideCart: React.FC<SlideCartProps> = ({
       totalPrice: formatPrice(grandTotal),
       lang,
     };
+
 
     try {
       const response = await fetch("/api/order", {

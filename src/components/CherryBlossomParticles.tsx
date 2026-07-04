@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 interface Petal {
   id: number;
@@ -7,17 +7,24 @@ interface Petal {
   delay: number;
   duration: number;
   opacity: number;
+  animOffset: number;
 }
 
 export const CherryBlossomParticles: React.FC<{ count?: number }> = ({ count = 14 }) => {
-  const petals: Petal[] = Array.from({ length: count }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    size: 10 + Math.random() * 14,
-    delay: Math.random() * 8,
-    duration: 6 + Math.random() * 6,
-    opacity: 0.5 + Math.random() * 0.45,
-  }));
+  const petals = useMemo<Petal[]>(() => {
+    return Array.from({ length: count }, (_, i) => {
+      const duration = 6 + Math.random() * 6;
+      return {
+        id: i,
+        x: Math.random() * 100,
+        size: 10 + Math.random() * 14,
+        delay: Math.random() * 8,
+        duration,
+        opacity: 0.5 + Math.random() * 0.45,
+        animOffset: Math.random() * duration,
+      };
+    });
+  }, [count]);
 
   return (
     // Container only covers the TOP portion of the section (h-64 = 256px)
@@ -32,7 +39,7 @@ export const CherryBlossomParticles: React.FC<{ count?: number }> = ({ count = 1
           className="absolute top-0"
           style={{
             left: `${petal.x}%`,
-            animation: `petalFallTop ${petal.duration}s -${Math.random() * petal.duration}s linear infinite`,
+            animation: `petalFallTop ${petal.duration}s -${petal.animOffset}s linear infinite`,
           }}
         >
           <svg

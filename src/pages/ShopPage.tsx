@@ -257,9 +257,11 @@ export const ShopPage: React.FC<ShopPageProps> = ({ lang }) => {
                       <div className="p-5 flex flex-col gap-3 flex-grow">
                         <div>
                           <span className="text-[10px] font-black text-[#FF6C84] uppercase tracking-wider justify-start flex">{category}</span>
-                          <h2 className="text-base font-extrabold text-slate-900 font-heading leading-tight mt-0.5 justify-start flex">
-                            {name}
-                          </h2>
+                          <Link to={`/shop/${product.id}`} className="hover:text-[#FF6C84] transition-colors">
+                            <h2 className="text-base font-extrabold text-slate-900 font-heading leading-tight mt-0.5 justify-start flex hover:text-[#FF6C84] transition-colors">
+                              {name}
+                            </h2>
+                          </Link>
                           <p className="text-xs text-slate-500 mt-0.5 justify-start flex">{subtitle}</p>
                         </div>
 

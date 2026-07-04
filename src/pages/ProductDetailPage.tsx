@@ -81,6 +81,24 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  const [timeLeft, setTimeLeft] = useState(885); // 14 mins 45 secs
+  const [stockCount, setStockCount] = useState(7);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 885));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return lang === "ar"
+      ? `${mins} دقيقة و ${secs} ثانية`
+      : `${mins}m ${secs}s`;
+  };
+
   useEffect(() => {
     setActiveImg(0);
     setSubmitted(false);
@@ -159,10 +177,99 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
     window.open(waUrl, "_blank");
   };
 
+  // ── Algerian Phone Validator ───────────────────────────────────────────────
+  const validateAlgerianPhone = (raw: string): { valid: boolean; reason: string } => {
+    // Normalise: remove spaces, dashes, dots; convert +213/00213 prefix to 0
+    let n = raw.replace(/[\s\-\.]/g, "");
+    if (n.startsWith("+213")) n = "0" + n.slice(4);
+    else if (n.startsWith("00213")) n = "0" + n.slice(5);
+    else if (n.startsWith("213") && n.length === 12) n = "0" + n.slice(3);
+
+    // Must be exactly 10 digits
+    if (!/^\d{10}$/.test(n)) {
+      return { valid: false, reason: lang === "ar"
+        ? "رقم الهاتف يجب أن يتكون من 10 أرقام (مثال: 0551 234 567)"
+        : "Phone number must be 10 digits (e.g. 0551 234 567)" };
+    }
+
+    // Must start with a valid Algerian prefix:
+    // Mobile: 05 (Ooredoo), 06 (Mobilis/Djezzy), 07 (Mobilis/Ooredoo)
+    // Landline: 02 (Centre), 03 (East), 04 (West)
+    const prefix2 = n.slice(0, 2);
+    if (!["02", "03", "04", "05", "06", "07"].includes(prefix2)) {
+      return { valid: false, reason: lang === "ar"
+        ? "رقم غير صالح. يجب أن يبدأ بـ 02 أو 03 أو 04 (ثابت) أو 05 أو 06 أو 07 (جوال)"
+        : "Invalid number. Must start with 02–04 (landline) or 05–07 (mobile)" };
+    }
+
+    // Block all-same-digit pattern (e.g. 0555555555, 0666666666)
+    if (/^.(.)\1{8}$/.test(n)) {
+      return { valid: false, reason: lang === "ar"
+        ? "يبدو أن الرقم مزيف. يرجى إدخال رقم هاتف حقيقي."
+        : "This looks like a fake number. Please enter a real phone number." };
+    }
+
+    // Block obviously sequential ascending/descending runs (e.g. 0512345678, 0598765432)
+    const digits = n.slice(2);
+    let ascending = 0; let descending = 0;
+    for (let i = 1; i < digits.length; i++) {
+      if (Number(digits[i]) === Number(digits[i - 1]) + 1) ascending++;
+      else ascending = 0;
+      if (Number(digits[i]) === Number(digits[i - 1]) - 1) descending++;
+      else descending = 0;
+      if (ascending >= 6 || descending >= 6) {
+        return { valid: false, reason: lang === "ar"
+          ? "يبدو أن الرقم مزيف. يرجى إدخال رقم هاتف حقيقي."
+          : "This looks like a fake number. Please enter a real phone number." };
+      }
+    }
+
+    return { valid: true, reason: "" };
+  };
+
+  const scrollToForm = () => {
+    setTimeout(() => {
+      document.getElementById("checkout-form-container")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  };
+
   const handleWebsiteSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setErrorMsg("");
+
+    // ── Field Validation ────────────────────────────────────────────────────
+    if (!fullName.trim()) {
+      setErrorMsg(lang === "ar" ? "يرجى إدخال الاسم الكامل" : "Please enter your full name");
+      scrollToForm();
+      return;
+    }
+    if (fullName.trim().split(/\s+/).length < 2) {
+      setErrorMsg(lang === "ar" ? "يرجى إدخال الاسم واللقب (اسمين على الأقل)" : "Please enter both your first and last name");
+      scrollToForm();
+      return;
+    }
+
+    // ── Phone validation ────────────────────────────────────────────────────
+    const phoneCheck = validateAlgerianPhone(phoneNumber);
+    if (!phoneCheck.valid) {
+      setErrorMsg(phoneCheck.reason);
+      scrollToForm();
+      return;
+    }
+
+    if (!selectedWilayaCode) {
+      setErrorMsg(lang === "ar" ? "يرجى اختيار الولاية" : "Please choose your Wilaya");
+      scrollToForm();
+      return;
+    }
+
+    if (!commune) {
+      setErrorMsg(lang === "ar" ? "يرجى اختيار البلدية" : "Please choose your Commune");
+      scrollToForm();
+      return;
+    }
+
+    setIsSubmitting(true);
 
     const activeWilayaObj = WILAYAS.find(w => w.code === selectedWilayaCode);
     const wilayaString = activeWilayaObj 
@@ -191,15 +298,19 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
       const result = await response.json();
       if (result.success) {
         setSubmitted(true);
+        scrollToForm();
       } else {
         setErrorMsg(lang === "ar" ? "حدث خطأ أثناء إرسال طلبك، يرجى المحاولة لاحقاً." : "Error sending your order, please try again.");
+        scrollToForm();
       }
     } catch (err) {
       setErrorMsg(lang === "ar" ? "تعذّر الاتصال بالخادم، يرجى المحاولة لاحقاً." : "Could not reach the server. Please try again.");
+      scrollToForm();
     } finally {
       setIsSubmitting(false);
     }
   };
+
 
   const filteredReviews = activeReviewFilter === "all"
     ? product.reviews
@@ -257,6 +368,34 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
                   {lang === "ar" ? product.nameAr : product.name}
                 </h1>
                 <p className="text-slate-500 text-sm mt-1">{lang === "ar" ? product.subtitleAr : product.subtitle}</p>
+
+                {/* Urgency Indicators */}
+                <div className="mt-4 flex flex-col gap-2.5 bg-rose-50/50 border border-rose-100 rounded-2xl p-4 text-xs sm:text-sm">
+                  {/* Stock Alert */}
+                  <div className="flex items-center gap-2 font-bold text-rose-700 justify-start">
+                    <span className="relative flex h-2.5 w-2.5 shrink-0">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
+                    </span>
+                    <span>
+                      {lang === "ar"
+                        ? `الكمية محدودة جداً: متبقي ${stockCount} قطع فقط في المخزن!`
+                        : `⚠️ Very limited stock: only ${stockCount} pieces remaining in stock!`}
+                    </span>
+                  </div>
+                  {/* Countdown Timer */}
+                  <div className="flex items-center gap-2 font-extrabold text-slate-800 justify-start">
+                    <span className="text-[#FF6C84]">⚡</span>
+                    <span>
+                      {lang === "ar"
+                        ? `ينتهي العرض الخاص والدفع عند الاستلام خلال: `
+                        : `Flash sale & COD offer ends in: `}
+                    </span>
+                    <span className="text-[#FF6C84] font-mono tracking-wider">
+                      {formatTime(timeLeft)}
+                    </span>
+                  </div>
+                </div>
               </div>
 
               {/* Embedded Checkout Form Box */}
@@ -279,7 +418,19 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
                     </div>
                     <h3 className="text-xl sm:text-2xl font-black text-black font-heading">{t.orderSuccessTitle}</h3>
                     <p className="text-slate-600 text-sm leading-relaxed max-w-sm">
-                      {t.orderSuccessDesc.replace("{name}", fullName).replace("{phone}", phoneNumber).replace("{commune}", commune).replace("{wilaya}", wilaya)}
+                      {t.orderSuccessDesc
+                        .replace("{name}", fullName)
+                        .replace("{phone}", phoneNumber)
+                        .replace("{commune}", commune)
+                        .replace(
+                          "{wilaya}",
+                          (() => {
+                            const activeWilayaObj = WILAYAS.find(w => w.code === selectedWilayaCode);
+                            return activeWilayaObj 
+                              ? `${activeWilayaObj.code} - ${lang === 'ar' ? activeWilayaObj.ar_name : activeWilayaObj.name}`
+                              : "";
+                          })()
+                        )}
                     </p>
                     <div className="w-full bg-[#FFF4F3] border border-[#FFD6DD] rounded-2xl p-4 text-sm flex flex-col gap-2 mt-2">
                       <div className="flex justify-between font-bold text-slate-700">
@@ -295,9 +446,22 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
                         <span>{formatPrice(currentBundle.total)}</span>
                       </div>
                     </div>
+                    <a
+                      href={`https://wa.me/213560684042?text=${encodeURIComponent(
+                        lang === "ar"
+                          ? `مرحباً أوريا، لقد قمت بطلب ${product.nameAr} باسم ${fullName}. أود تأكيد/متابعة طلبي.`
+                          : `Hello Aurea, I just placed an order for the ${product.name} under the name ${fullName}. I would like to track my order.`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-sm py-3.5 rounded-2xl shadow-md transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer mt-2"
+                    >
+                      <span>💬 {lang === "ar" ? "تأكيد وتتبع الطلب عبر الواتساب" : "Confirm & Track on WhatsApp"}</span>
+                    </a>
+
                     <button
                       onClick={() => setSubmitted(false)}
-                      className="mt-2 bg-[#FF6C84] text-white font-bold px-8 py-3 rounded-xl hover:bg-[#FF5A73] transition-all cursor-pointer"
+                      className="mt-2 bg-transparent border border-slate-200 text-slate-500 hover:text-slate-800 font-bold px-8 py-3 rounded-xl hover:bg-slate-50 transition-all cursor-pointer text-xs"
                     >
                       {lang === "ar" ? "طلب جديد" : "New Order"}
                     </button>
