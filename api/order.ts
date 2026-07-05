@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const ORDER_EMAIL = process.env.ORDER_EMAIL || 'aurea.shop.dz@gmail.com';
 
 const META_PIXEL_ID = process.env.META_PIXEL_ID || '2149341695632178';
-const META_PIXEL_ID_2 = '2780931165361767';
+const META_PIXEL_ID_2 = '27809311165361767';
 const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN || '';
 
 const sha256 = (value: string): string =>
