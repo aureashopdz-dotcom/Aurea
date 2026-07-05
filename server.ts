@@ -162,6 +162,7 @@ app.post('/api/order', async (req, res) => {
           },
         },
       ],
+      test_event_code: process.env.META_TEST_EVENT_CODE || 'TEST91947',
     });
 
     return res.json({ success: true, id: result.data?.id });

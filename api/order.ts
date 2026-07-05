@@ -156,6 +156,7 @@ export default async function handler(req: any, res: any) {
           },
         },
       ],
+      test_event_code: process.env.META_TEST_EVENT_CODE || 'TEST91947',
     });
 
     return res.json({ success: true, id: (result as any).data?.id });
