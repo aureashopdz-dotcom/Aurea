@@ -148,8 +148,6 @@ export const PRODUCTS: Record<string, ProductData> = {
       "سهلة التنظيف بمسحة واحدة",
       "تصميم مستوحى من جمال الطبيعة",
     ],
-    chainOptions: ["Silver"],
-    chainOptionsAr: ["فضة"],
 
     valuePropHeading: "Why Everyone Loves This Necklace",
     valuePropHeadingAr: "لماذا يعشق الجميع هذه القلادة",

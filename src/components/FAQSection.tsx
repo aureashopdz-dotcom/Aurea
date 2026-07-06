@@ -18,9 +18,9 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ lang = "ar" }) => {
   const faqs: BilingualFAQ[] = [
     {
       questionEn: "What is the pendant made of?",
-      answerEn: "The hummingbird pendant is made from high-quality acrylic with vibrant, stained-glass inspired detailing. It hangs on a durable metal ball chain available in your choice of silver or gold tone. The total gross weight is approximately 20 grams — extremely lightweight and comfortable for all-day wear.",
+      answerEn: "The hummingbird pendant is made from high-quality acrylic with vibrant, stained-glass inspired detailing. It hangs on a durable metal ball chain available in your choice of silver-toned or gold-toned finish. The total gross weight is approximately 20 grams — extremely lightweight and comfortable for all-day wear.",
       questionAr: "من ماذا صنعت المعلقة؟",
-      answerAr: "قلادة طائر الطنان مصنوعة من أكريليك عالي الجودة بتفاصيل ملونة تشبه الزجاج المعشق الرائع. تتدلى على سلسلة معدنية متينة متوفرة بالفضة أو الذهب. يبلغ وزنها حوالي 20 غراماً — خفيفة جداً ومريحة طوال اليوم.",
+      answerAr: "قلادة طائر الطنان مصنوعة من أكريليك عالي الجودة بتفاصيل ملونة تشبه الزجاج المعشق الرائع. تتدلى على سلسلة معدنية متينة متوفرة باللون الفضي أو الذهبي. يبلغ وزنها حوالي 20 غراماً — خفيفة جداً ومريحة طوال اليوم.",
     },
     {
       questionEn: "How do I care for the necklace?",

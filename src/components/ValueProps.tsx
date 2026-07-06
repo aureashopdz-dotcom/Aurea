@@ -21,8 +21,8 @@ export const ValueProps: React.FC = () => {
     },
     {
       icon: <Gift className="w-8 h-8 text-[#FF6C84]" />,
-      title: "Gold & Silver Chain Options",
-      desc: "Choose between a shining silver or a warm gold-toned metal ball chain — both beautifully complement the vibrant multi-color hummingbird pendant."
+      title: "Gold & Silver-Toned Chain Options",
+      desc: "Choose between a shining silver-toned or a warm gold-toned metal ball chain — both beautifully complement the vibrant multi-color hummingbird pendant."
     }
   ];
 

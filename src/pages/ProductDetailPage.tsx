@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+﻿import React, { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { generateEventId, trackViewContent, trackInitiateCheckout, trackPurchase } from "../utils/metaPixel";
 import {
@@ -471,7 +471,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
                       </div>
                       <div className="flex justify-between font-bold text-slate-700">
                         <span>{lang === "ar" ? "السلسلة" : "Chain"}</span>
-                        <span>{selectedChain === "Gold" ? (lang === "ar" ? "ذهب" : "Gold") : (lang === "ar" ? "فضة" : "Silver")}</span>
+                        <span>{selectedChain === "Gold" ? (lang === "ar" ? "ذهبي" : "Gold Tone") : (lang === "ar" ? "فضي" : "Silver Tone")}</span>
                       </div>
                       <div className="border-t border-[#FFD6DD] pt-2 flex justify-between font-black text-[#FF6C84] text-base">
                         <span>{t.total}</span>
@@ -509,31 +509,33 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
                       )}
 
                       {/* Chain Selection */}
-                      <div className="flex flex-col gap-2">
-                        <label className="font-bold text-slate-700 uppercase tracking-wider justify-start flex">
-                          {t.chain}: <span className="text-slate-900 mx-1">{selectedChain === "Gold" ? (lang === "ar" ? "ذهب" : "Gold") : (lang === "ar" ? "فضة" : "Silver")}</span>
-                        </label>
-                        <div className="flex gap-3">
-                        {(lang === "ar" ? product.chainOptionsAr : product.chainOptions)?.map((chain, i) => {
-                          const engVal = product.chainOptions ? product.chainOptions[i] : chain;
-                          return (
-                            <button
-                              type="button"
-                              key={chain}
-                              onClick={() => setSelectedChain(engVal)}
-                              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 font-bold transition-all duration-200 cursor-pointer ${
-                                selectedChain === engVal
-                                  ? engVal === "Gold" ? "border-amber-500 bg-amber-50 text-amber-800" : "border-slate-700 bg-slate-50 text-slate-900"
-                                  : "border-slate-200 text-slate-500 hover:border-slate-300"
-                              }`}
-                            >
-                              <span className={`w-4 h-4 rounded-full inline-block border ${engVal === "Gold" ? "bg-gradient-to-br from-yellow-300 to-amber-500 border-amber-400" : "bg-gradient-to-br from-slate-300 to-slate-500 border-slate-400"}`} />
-                              {chain}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
+                      {product.chainOptions && product.chainOptions.length > 0 && (
+                        <div className="flex flex-col gap-2">
+                          <label className="font-bold text-slate-700 uppercase tracking-wider justify-start flex">
+                            {t.chain}: <span className="text-slate-900 mx-1">{selectedChain === "Gold" ? (lang === "ar" ? "ذهبي" : "Gold Tone") : (lang === "ar" ? "فضي" : "Silver Tone")}</span>
+                          </label>
+                          <div className="flex gap-3">
+                            {(lang === "ar" ? product.chainOptionsAr : product.chainOptions)?.map((chain, i) => {
+                              const engVal = product.chainOptions ? product.chainOptions[i] : chain;
+                              return (
+                                <button
+                                  type="button"
+                                  key={chain}
+                                  onClick={() => setSelectedChain(engVal)}
+                                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 font-bold transition-all duration-200 cursor-pointer ${
+                                    selectedChain === engVal
+                                      ? engVal === "Gold" ? "border-amber-500 bg-amber-50 text-amber-800" : "border-slate-700 bg-slate-50 text-slate-900"
+                                      : "border-slate-200 text-slate-500 hover:border-slate-300"
+                                  }`}
+                                >
+                                  <span className={`w-4 h-4 rounded-full inline-block border ${engVal === "Gold" ? "bg-gradient-to-br from-yellow-300 to-amber-500 border-amber-400" : "bg-gradient-to-br from-slate-300 to-slate-500 border-slate-400"}`} />
+                                  {chain}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
 
                     {/* Bundle Selection */}
                     <div className="flex flex-col gap-2">
@@ -1169,3 +1171,4 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
     </div>
   );
 };
+

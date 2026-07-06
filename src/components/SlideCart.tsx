@@ -141,7 +141,7 @@ export const SlideCart: React.FC<SlideCartProps> = ({
 
     // Create a summarized item string
     const itemSummary = cart.map(
-      (item) => `${item.quantity}x ${isAr ? item.nameAr : item.name} (${item.chain === "Gold" ? (isAr ? "ذهب" : "Gold") : (isAr ? "فضة" : "Silver")})`
+      (item) => `${item.quantity}x ${isAr ? item.nameAr : item.name} (${item.chain === "Gold" ? (isAr ? "ذهبي" : "Gold Tone") : (isAr ? "فضي" : "Silver Tone")})`
     ).join(", ");
 
     const payload = {

@@ -43,7 +43,7 @@ export const SocialProof: React.FC = () => {
       id: "3",
       name: "Ava J.",
       title: "Highly sensitive skin approved!",
-      review: "I have severe nickel allergies and almost all fashion jewelry gives me instant red hives. This sterling silver core with gold fill has caused zero reactions. It's so lightweight and comfortable I forget I even have it on. Stunning detailing too.",
+      review: "I have severe nickel allergies and almost all fashion jewelry gives me instant red hives. This hypoallergenic metal chain has caused zero reactions. It's so lightweight and comfortable I forget I even have it on. Stunning detailing too.",
       rating: 5,
       date: "June 08, 2026",
       isVerified: true,

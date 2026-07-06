@@ -5,7 +5,7 @@ export const ComparisonSection: React.FC = () => {
   const comparisonRows = [
     {
       feature: "Base Metals",
-      aura: "Genuine 925 Sterling Silver base with 18k Rose Gold Fill",
+      aura: "Premium hypoallergenic metal base with durable finish",
       others: "Low-grade brass, zinc alloy or copper that oxidizes",
       isAuraPositive: true,
       isOthersPositive: false

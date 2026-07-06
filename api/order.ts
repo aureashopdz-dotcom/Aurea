@@ -101,7 +101,7 @@ export default async function handler(req: any, res: any) {
         </div>
         <div class="row">
           <span class="label">${isArabic ? 'نوع السلسلة' : 'Chain'}</span>
-          <span class="value">${chain === 'Gold' ? (isArabic ? 'ذهب 🟡' : 'Gold 🟡') : (isArabic ? 'فضة ⚪' : 'Silver ⚪')}</span>
+          <span class="value">${chain === 'Gold' ? (isArabic ? 'ذهبي 🟡' : 'Gold Tone 🟡') : (isArabic ? 'فضي ⚪' : 'Silver Tone ⚪')}</span>
         </div>
         <div class="row">
           <span class="label">${isArabic ? 'العرض المختار' : 'Bundle'}</span>
