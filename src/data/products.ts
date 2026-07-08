@@ -5,6 +5,7 @@ import batImg1 from "../../Images/730620721_2517454658726725_8868282425921152749
 import batImg2 from "../../Images/728744240_2358611457882079_326585741473672331_n.jpg";
 import batImg3 from "../../Images/729566830_1598360015191540_8285010084839496162_n.jpg";
 import batImgBack from "../../Images/bat-heart-back.png";
+import batImgAd from "../../Images/image ad.png";
 import revHeart1 from "../../Images/REVIEWS (1).jpg";
 import revHeart2 from "../../Images/REVIEWS (2).jpg";
 import revHeart3 from "../../Images/REVIEWS (3).jpg";
@@ -378,7 +379,7 @@ export const PRODUCTS: Record<string, ProductData> = {
     subtitleAr: "قلب تشريحي · سلسلة مطابقة · 50 سم",
     price: 1900,
     comparePrice: 3800,
-    images: [batImg2, batImg1, batImg3],
+    images: [batImg2, batImg1, batImg3, batImgAd],
     backImage: batImgBack,
     badge: "Dark Edition",
     badgeAr: "إصدار مظلم",
