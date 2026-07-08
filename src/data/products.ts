@@ -377,7 +377,7 @@ export const PRODUCTS: Record<string, ProductData> = {
     subtitleAr: "قلب تشريحي · سلسلة مطابقة · 50 سم",
     price: 1900,
     comparePrice: 3800,
-    images: [batImg1, batImg2, batImg3, batImgBack],
+    images: [batImg2, batImg1, batImg3, batImgBack],
     badge: "Dark Edition",
     badgeAr: "إصدار مظلم",
     category: "Necklaces",
