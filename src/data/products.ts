@@ -60,6 +60,7 @@ export interface ProductData {
   price: number;
   comparePrice: number;
   images: string[];
+  backImage?: string;
   badge: string;
   badgeAr: string;
   category: string;
@@ -377,7 +378,8 @@ export const PRODUCTS: Record<string, ProductData> = {
     subtitleAr: "قلب تشريحي · سلسلة مطابقة · 50 سم",
     price: 1900,
     comparePrice: 3800,
-    images: [batImg2, batImg1, batImg3, batImgBack],
+    images: [batImg2, batImg1, batImg3],
+    backImage: batImgBack,
     badge: "Dark Edition",
     badgeAr: "إصدار مظلم",
     category: "Necklaces",

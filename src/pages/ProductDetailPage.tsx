@@ -857,7 +857,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
               <div className="relative order-1 lg:order-2 flex justify-center">
                 <div className="relative rounded-3xl overflow-hidden aspect-[4/5] border border-white/10 shadow-2xl max-w-sm w-full">
                   <img 
-                    src={product.images[3] || product.images[product.images.length - 1]} 
+                    src={product.backImage || product.images[product.images.length - 1]} 
                     alt={lang === "ar" ? "التصميم الخلفي لقلادة قلب الخفاش" : "Bat Heart Necklace Back Side Design"} 
                     className="w-full h-full object-cover object-center" 
                   />
