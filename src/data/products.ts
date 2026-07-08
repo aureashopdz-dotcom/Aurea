@@ -1,4 +1,4 @@
-﻿import img1 from "../assets/hummingbird-product-1.jpg";
+import img1 from "../assets/hummingbird-product-1.jpg";
 import img2 from "../assets/hummingbird-product-2.jpg";
 import img3 from "../assets/hummingbird-product-3.jpg";
 import batImg1 from "../../Images/730620721_2517454658726725_8868282425921152749_n.jpg";
@@ -373,8 +373,8 @@ export const PRODUCTS: Record<string, ProductData> = {
     nameAr: "قلادة قلب الخفاش الغوطية",
     shortName: "Bat Heart Necklace",
     shortNameAr: "قلادة قلب الخفاش",
-    subtitle: "Gothic anatomical heart · Silver ball chain · 50 cm",
-    subtitleAr: "قلب تشريحي غوطي · سلسلة كروية فضية · 50 سم",
+    subtitle: "Gothic anatomical heart · Matching ball chain · 50 cm",
+    subtitleAr: "قلب تشريحي غوطي · سلسلة كروية · 50 سم",
     price: 1900,
     comparePrice: 3800,
     images: [batImg1, batImg2, batImg3, batImgBack],
@@ -383,22 +383,22 @@ export const PRODUCTS: Record<string, ProductData> = {
     category: "Necklaces",
     categoryAr: "قلادات",
     description:
-      "A hauntingly beautiful statement piece — a deep crimson anatomical heart pendant adorned with silver bat wings and a miniature skull, suspended on a 50 cm silver ball chain. Silver-plated zinc alloy with rich red enamel detailing. For the bold, the dark, and the unapologetically unique.",
+      "A hauntingly beautiful statement piece — a deep crimson anatomical heart pendant adorned with wings and a miniature skull, suspended on a 50 cm matching ball chain. Features rich red enamel detailing. For the bold, the dark, and the unapologetically unique.",
     descriptionAr:
-      "قطعة بيان ساحرة ومذهلة — قلادة قلب تشريحي قرمزي عميق مزينة بأجنحة خفاش فضية وجمجمة مصغرة، معلقة على سلسلة كروية فضية بطول 50 سم. مطلية بالفضة مع تفاصيل مينا حمراء غنية. للجريئة، العاشقة للغموض، والفريدة في أسلوبها.",
+      "قطعة بيان ساحرة ومذهلة — قلادة قلب تشريحي قرمزي عميق مزينة بأجنحة خفاش وجمجمة مصغرة، معلقة على سلسلة كروية بطول 50 سم، مع تفاصيل مينا حمراء غنية. للجريئة، العاشقة للغموض، والفريدة في أسلوبها.",
     specs: [
-      "Zinc alloy pendant, silver-plated & enameled",
+      "Unique enameled statement pendant",
       "Deep red enamel anatomical heart",
-      "Silver bat wings & skull detail",
-      "50 cm silver ball chain",
+      "Bat wings & skull detail",
+      "50 cm matching ball chain",
       "Unisex — Women's choker style",
       "Gothic / Dark Academia aesthetic",
     ],
     specsAr: [
-      "قلادة زنك مطلية بالفضة ومطلية بالمينا",
+      "قلادة مميزة مطلية بالمينا",
       "قلب تشريحي بمينا حمراء غامقة",
-      "أجنحة خفاش فضية وتفصيل جمجمة مصغرة",
-      "سلسلة كروية فضية بطول 50 سم",
+      "أجنحة خفاش وتفصيل جمجمة مصغرة",
+      "سلسلة كروية بطول 50 سم",
       "للجنسين — بأسلوب الشوكر النسائي",
       "طراز غوطي / Dark Academia",
     ],
@@ -413,30 +413,23 @@ export const PRODUCTS: Record<string, ProductData> = {
       {
         title: "Rich Red Enamel Heart",
         titleAr: "قلب مينا أحمر زاهٍ",
-        desc: "The anatomical heart is flooded with deep crimson enamel and layered with intricate silver veining — striking from every angle.",
-        descAr: "القلب التشريحي مغمور بمينا قرمزية عميقة ومغطى بشبكة دقيقة من العروق الفضية — يخطف الأنظار من كل زاوية.",
+        desc: "The anatomical heart is flooded with deep crimson enamel and layered with intricate veining — striking from every angle.",
+        descAr: "القلب التشريحي مغمور بمينا قرمزية عميقة ومغطى بشبكة دقيقة من العروق — يخطف الأنظار من كل زاوية.",
         iconName: "Heart",
       },
       {
         title: "Bat Wings & Skull Charm",
         titleAr: "أجنحة الخفاش وتميمة الجمجمة",
-        desc: "A miniature skull clutched between silver bat wings tops the pendant — a gothic symbol of rebirth, mystery, and raw elegance.",
-        descAr: "جمجمة مصغرة محاطة بأجنحة خفاش فضية تعلو القلادة — رمز غوطي للولادة من جديد والغموض والأناقة الجريئة.",
+        desc: "A miniature skull clutched between bat wings tops the pendant — a gothic symbol of rebirth, mystery, and raw elegance.",
+        descAr: "جمجمة مصغرة محاطة بأجنحة خفاش تعلو القلادة — رمز غوطي للولادة من جديد والغموض والأناقة الجريئة.",
         iconName: "Sparkles",
       },
       {
-        title: "Statement Silver Chain",
-        titleAr: "سلسلة فضية جريئة",
-        desc: "The 50 cm silver ball chain balances the bold pendant perfectly — long enough for a choker look or layered styling.",
-        descAr: "سلسلة كروية فضية بطول 50 سم تكمل القلادة بشكل مثالي — طويلة بما يكفي لأسلوب الشوكر أو التنسيق المتعدد.",
+        title: "Statement Ball Chain",
+        titleAr: "سلسلة كروية مميزة",
+        desc: "The 50 cm ball chain balances the bold pendant perfectly — long enough for a choker look or layered styling.",
+        descAr: "سلسلة كروية بطول 50 سم تكمل القلادة بشكل مثالي — طويلة بما يكفي لأسلوب الشوكر أو التنسيق المتعدد.",
         iconName: "Gem",
-      },
-      {
-        title: "Zinc Alloy Durability",
-        titleAr: "قلادة زنك مطلية بالفضة",
-        desc: "Cast from premium zinc alloy then silver-plated and polished — built to hold its lustre through years of wear.",
-        descAr: "مصنوعة من سبيكة زنك عالية الجودة ثم مطلية بالفضة ومصقولة — مصممة لتحافظ على بريقها لسنوات من الاستخدام.",
-        iconName: "ShieldCheck",
       },
     ],
 
@@ -509,8 +502,8 @@ export const PRODUCTS: Record<string, ProductData> = {
       {
         feature: "Material",
         featureAr: "المادة",
-        ours: "Zinc alloy, silver-plated — durable, detailed, and skin-safe",
-        oursAr: "زنك مطلي بالفضة — متين، مفصل، وآمن على البشرة",
+        ours: "High-quality enameled alloy — durable, detailed, and skin-safe",
+        oursAr: "سبيكة عالية الجودة مطلية بالمينا — متينة، مفصلة، وآمنة على البشرة",
         others: "Unknown alloys that cause skin reactions",
         othersAr: "سبائك مجهولة تسبب تفاعلات جلدية وحساسية",
       },
@@ -573,15 +566,15 @@ export const PRODUCTS: Record<string, ProductData> = {
       {
         title: "Gothic Bat Wings & Skull",
         titleAr: "أجنحة خفاش غوطية وجمجمة",
-        desc: "A sculpted bat clutches a tiny skull above the heart — iconic gothic symbolism executed with premium silver-plated zinc alloy craftsmanship.",
-        descAr: "خفاش منحوت يمسك جمجمة صغيرة فوق القلب — رمزية غوطية أيقونية منفذة بحرفة زنك مطلي بالفضة.",
+        desc: "A sculpted bat clutches a tiny skull above the heart — iconic gothic symbolism executed with premium craftsmanship.",
+        descAr: "خفاش منحوت يمسك جمجمة صغيرة فوق القلب — رمزية غوطية أيقونية منفذة بحرفية واتقان عالي.",
         iconName: "Sparkles",
       },
       {
-        title: "Silver-Plated & Polished",
-        titleAr: "مطلية بالفضة ومصقولة",
-        desc: "Electroplated in bright silver and then hand-polished — maintains its lustrous finish through daily wear.",
-        descAr: "مطلية كهربائياً بالفضة اللامعة ثم مصقولة يدوياً — تحافظ على لمعانها مع الاستخدام اليومي.",
+        title: "Polished Finish",
+        titleAr: "مصقولة ولامعة",
+        desc: "Electroplated with a bright lustrous finish and hand-polished — maintains its shine through daily wear.",
+        descAr: "مطلية بطلاء لامع ومصقولة يدوياً — تحافظ على لمعانها وجمالها مع الاستخدام اليومي.",
         iconName: "ShieldCheck",
       },
     ],
@@ -590,8 +583,8 @@ export const PRODUCTS: Record<string, ProductData> = {
       {
         question: "What is the pendant made of?",
         questionAr: "مما تصنع القلادة؟",
-        answer: "The Bat Heart pendant is cast from zinc alloy, then silver-plated, polished, and finished with deep red enamel on the anatomical heart. The bat wings and skull details are all part of the same cast — no separate glued pieces. The chain is a 50 cm silver ball chain.",
-        answerAr: "قلادة قلب الخفاش مصنوعة من سبيكة زنك مطلية بالفضة ومصقولة، ومزينة بمينا حمراء عميقة على القلب التشريحي. أجنحة الخفاش وتفاصيل الجمجمة كلها جزء من نفس القالب — لا توجد قطع منفصلة ملصقة. السلسلة عبارة عن سلسلة كروية فضية بطول 50 سم.",
+        answer: "The Bat Heart pendant is cast from a durable alloy, polished, and finished with deep red enamel on the anatomical heart. The wings and skull details are all part of the same cast — no separate glued pieces. The chain is a matching 50 cm ball chain.",
+        answerAr: "قلادة قلب الخفاش مصنوعة من سبيكة معدنية متينة ومصقولة، ومزينة بمينا حمراء عميقة على القلب التشريحي. أجنحة الخفاش وتفاصيل الجمجمة كلها جزء من نفس القالب — لا توجد قطع منفصلة ملصقة. السلسلة عبارة عن سلسلة كروية بطول 50 سم.",
       },
       {
         question: "How do I care for it?",
