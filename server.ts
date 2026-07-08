@@ -11,8 +11,7 @@ const ORDER_EMAIL = process.env.ORDER_EMAIL || 'aurea.shop.dz@gmail.com';
 import crypto from 'crypto';
 
 // ── Meta CAPI helper ─────────────────────────────────────────────────────────
-const META_PIXEL_ID = process.env.META_PIXEL_ID || '2149341695632178';
-const META_PIXEL_ID_2 = '27809311165361767';
+const META_PIXEL_ID = process.env.META_PIXEL_ID || '27809311165361767';
 const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN || '';
 
 const sha256 = (value: string): string =>
@@ -23,20 +22,17 @@ const sendCapiEvent = async (payload: object): Promise<void> => {
     console.warn('[AUREA CAPI] META_ACCESS_TOKEN not set — skipping CAPI.');
     return;
   }
-  const pixelIds = [META_PIXEL_ID, META_PIXEL_ID_2];
-  for (const pixelId of pixelIds) {
-    try {
-      const url = `https://graph.facebook.com/v20.0/${pixelId}/events?access_token=${META_ACCESS_TOKEN}`;
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const json = await res.json();
-      console.log(`[AUREA CAPI] Pixel ${pixelId} Response:`, JSON.stringify(json));
-    } catch (err: any) {
-      console.error(`[AUREA CAPI] Pixel ${pixelId} Error:`, err.message);
-    }
+  try {
+    const url = `https://graph.facebook.com/v20.0/${META_PIXEL_ID}/events?access_token=${META_ACCESS_TOKEN}`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const json = await res.json();
+    console.log(`[AUREA CAPI] Response:`, JSON.stringify(json));
+  } catch (err: any) {
+    console.error(`[AUREA CAPI] Error:`, err.message);
   }
 };
 

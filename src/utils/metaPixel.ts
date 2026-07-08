@@ -1,11 +1,4 @@
-/**
- * Meta Pixel + CAPI browser-side utility for AUREA
- * Pixel ID 1: 2149341695632178
- * Pixel ID 2: 27809311165361767
- */
-
-export const PIXEL_ID = "2149341695632178";
-export const PIXEL_ID_2 = "27809311165361767";
+export const PIXEL_ID = "27809311165361767";
 
 /** Generate a UUID v4 for event deduplication */
 export const generateEventId = (): string => {
