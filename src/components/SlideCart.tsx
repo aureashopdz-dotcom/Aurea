@@ -77,47 +77,12 @@ export const SlideCart: React.FC<SlideCartProps> = ({
 
   // ── Algerian Phone Validator ───────────────────────────────────────────────
   const validateAlgerianPhone = (raw: string): { valid: boolean; reason: string } => {
-    let n = raw.replace(/[\s\-\.]/g, "");
-    if (n.startsWith("+213")) n = "0" + n.slice(4);
-    else if (n.startsWith("00213")) n = "0" + n.slice(5);
-    else if (n.startsWith("213") && n.length === 12) n = "0" + n.slice(3);
-
-    if (!/^\d{10}$/.test(n)) {
-      return { valid: false, reason: isAr
-        ? "رقم الهاتف يجب أن يتكون من 10 أرقام (مثال: 0551 234 567)"
-        : "Phone number must be 10 digits (e.g. 0551 234 567)" };
+    if (!raw.trim()) {
+      return {
+        valid: false,
+        reason: isAr ? "يرجى إدخال رقم الهاتف" : "Please enter your phone number"
+      };
     }
-
-    // Must start with a valid Algerian prefix:
-    // Mobile: 05 (Ooredoo), 06 (Mobilis/Djezzy), 07 (Mobilis/Ooredoo)
-    // Landline: 02 (Centre), 03 (East), 04 (West)
-    const prefix2 = n.slice(0, 2);
-    if (!["02", "03", "04", "05", "06", "07"].includes(prefix2)) {
-      return { valid: false, reason: isAr
-        ? "رقم غير صالح. يجب أن يبدأ بـ 02 أو 03 أو 04 (ثابت) أو 05 أو 06 أو 07 (جوال)"
-        : "Invalid number. Must start with 02–04 (landline) or 05–07 (mobile)" };
-    }
-
-    if (/^.(.)\1{8}$/.test(n)) {
-      return { valid: false, reason: isAr
-        ? "يبدو أن الرقم مزيف. يرجى إدخال رقم هاتف حقيقي."
-        : "This looks like a fake number. Please enter a real phone number." };
-    }
-
-    const digits = n.slice(2);
-    let ascending = 0; let descending = 0;
-    for (let i = 1; i < digits.length; i++) {
-      if (Number(digits[i]) === Number(digits[i - 1]) + 1) ascending++;
-      else ascending = 0;
-      if (Number(digits[i]) === Number(digits[i - 1]) - 1) descending++;
-      else descending = 0;
-      if (ascending >= 6 || descending >= 6) {
-        return { valid: false, reason: isAr
-          ? "يبدو أن الرقم مزيف. يرجى إدخال رقم هاتف حقيقي."
-          : "This looks like a fake number. Please enter a real phone number." };
-      }
-    }
-
     return { valid: true, reason: "" };
   };
 
@@ -383,10 +348,9 @@ export const SlideCart: React.FC<SlideCartProps> = ({
                           <input
                             type="tel"
                             required
-                            pattern="[567][0-9]{8}"
                             value={phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
-                            placeholder={isAr ? "رقم الهاتف (مثل: 555123456)" : "e.g. 555123456"}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                            placeholder={isAr ? "رقم الهاتف" : "Phone number"}
                             className="w-full border border-slate-200 rounded-xl pl-14 pr-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-[#FF6C84] bg-white"
                           />
                         </div>
