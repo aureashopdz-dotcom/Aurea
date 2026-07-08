@@ -143,7 +143,7 @@ app.post('/api/order', async (req, res) => {
     // Parse numeric value from totalPrice string (e.g. "2700 DA" → 2700)
     const numericValue = parseFloat(String(totalPrice).replace(/[^\d.]/g, '')) || 0;
 
-    await sendCapiEvent({
+    const capiPayload: Record<string, unknown> = {
       data: [
         {
           event_name: 'Purchase',
@@ -151,8 +151,8 @@ app.post('/api/order', async (req, res) => {
           event_id: purchaseEventId || `order-${Date.now()}`,
           action_source: 'website',
           user_data: {
-            ph: [sha256(normPhone)], // hashed phone (E.164 without +)
-            country: [sha256('dz')], // Algeria
+            ph: [sha256(normPhone)],
+            country: [sha256('dz')],
           },
           custom_data: {
             currency: 'DZD',
@@ -162,8 +162,11 @@ app.post('/api/order', async (req, res) => {
           },
         },
       ],
-      test_event_code: process.env.META_TEST_EVENT_CODE || 'TEST91947',
-    });
+    };
+    if (process.env.META_TEST_EVENT_CODE) {
+      capiPayload.test_event_code = process.env.META_TEST_EVENT_CODE;
+    }
+    await sendCapiEvent(capiPayload);
 
     return res.json({ success: true, id: result.data?.id });
   } catch (err: any) {

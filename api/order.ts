@@ -137,7 +137,7 @@ export default async function handler(req: any, res: any) {
     const normPhone = rawPhone.startsWith('0') ? `213${rawPhone.slice(1)}` : rawPhone;
     const numericValue = parseFloat(String(totalPrice).replace(/[^\d.]/g, '')) || 0;
 
-    await sendCapiEvent({
+    const capiPayload: Record<string, unknown> = {
       data: [
         {
           event_name: 'Purchase',
@@ -156,8 +156,12 @@ export default async function handler(req: any, res: any) {
           },
         },
       ],
-      test_event_code: process.env.META_TEST_EVENT_CODE || 'TEST91947',
-    });
+    };
+    // Only include test_event_code when explicitly set (never in production)
+    if (process.env.META_TEST_EVENT_CODE) {
+      capiPayload.test_event_code = process.env.META_TEST_EVENT_CODE;
+    }
+    await sendCapiEvent(capiPayload);
 
     return res.json({ success: true, id: (result as any).data?.id });
   } catch (err: any) {
