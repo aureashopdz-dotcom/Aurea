@@ -12,6 +12,18 @@ import revHeart3 from "../../Images/REVIEWS (3).jpg";
 import revHum1 from "../../Images/REVIEWS (4).jpg";
 import revHum2 from "../../Images/REVIEWS (5).jpg";
 import revHum3 from "../../Images/REVIEWS (6).jpg";
+// Butterfly Necklace images
+import butterflyImg1 from "../../Images/attachments/5988.png"; // Blue
+import butterflyImg2 from "../../Images/attachments/5987.png"; // Purple
+import butterflyImg3 from "../../Images/attachments/5986.png"; // Pink
+import butterflyImg4 from "../../Images/attachments/6021.png"; // Aurora/Dark
+import butterflyImgBack from "../../Images/attachments/6022.png";
+import butterflySpot1 from "../../Images/attachments/7259.png";
+import butterflySpot2 from "../../Images/attachments/6009.png";
+import butterflySpot3 from "../../Images/attachments/6011.png";
+import revButterfly1 from "../../Images/attachments/5993.jpg";
+import revButterfly2 from "../../Images/attachments/5996.jpg";
+import revButterfly3 from "../../Images/attachments/5997.jpg";
 
 export interface ProductFAQ {
   question: string;
@@ -613,5 +625,268 @@ export const PRODUCTS: Record<string, ProductData> = {
     ctaHeadingAr: "ارتدي القلب الذي ينبض بشكل مختلف",
     ctaSubheading: "Bold, gothic, and undeniably beautiful. Own yours today.",
     ctaSubheadingAr: "جريئة، غوطية، وجميلة بشكل لا يُنكر. اطلبي قطعتك اليوم.",
+  },
+
+  "butterfly-necklace": {
+    id: "butterfly-necklace",
+    name: "Crystal Butterfly Pendant Necklace",
+    nameAr: "قلادة الفراشة الكريستالية اللامعة",
+    shortName: "Butterfly Necklace",
+    shortNameAr: "قلادة الفراشة",
+    subtitle: "Zircon crystal butterfly · Gold-plated link chain · 45 cm",
+    subtitleAr: "فراشة زركون كريستالية · سلسلة مطلية بالذهب · 45 سم",
+    price: 1900,
+    comparePrice: 3800,
+    images: [butterflyImg1, butterflyImg2, butterflyImg3, butterflyImg4],
+    backImage: butterflyImgBack,
+    badge: "Y2K Aesthetic",
+    badgeAr: "ستايل Y2K",
+    category: "Necklaces",
+    categoryAr: "قلادات",
+    description:
+      "A breathtaking Y2K-inspired clavicle necklace featuring a delicate butterfly pendant adorned with radiant zircon crystals. Micro-pave set stones capture light from every angle, delivering luxury shine that elevates any outfit — from everyday casual to special occasions.",
+    descriptionAr:
+      "قلادة ترقوة مستوحاة من أسلوب Y2K الساحر، تتصدرها فراشة رقيقة مزينة بأحجار الزركون البراقة. تلتقط أحجار الزركون الصغيرة الضوء من كل زاوية، لتمنحك لمعاناً فاخراً يرفع مستوى أي إطلالة — من ملابس يومية بسيطة إلى المناسبات الخاصة.",
+    specs: [
+      "Zinc alloy base, gold-plated finish",
+      "Zircon crystal micro-pave butterfly pendant",
+      "18-inch (45 cm) link chain — sits right on the collarbone",
+      "Pendant size: 2 × 2 cm",
+      "Lightweight — only 15g",
+      "Available in: Blue, Purple & Pink",
+    ],
+    specsAr: [
+      "قاعدة سبيكة زنك مطلية بالذهب",
+      "قلادة فراشة بأحجار زركون بتقنية ميكرو بافي",
+      "سلسلة حلقات 45 سم — تستقر بشكل مثالي على الترقوة",
+      "حجم القلادة: 2 × 2 سم",
+      "خفيفة الوزن — 15 غرام فقط",
+      "متوفرة بألوان: أزرق، بنفسجي وردي",
+    ],
+    chainOptions: ["Blue", "Purple", "Pink"],
+    chainOptionsAr: ["أزرق", "بنفسجي", "وردي"],
+
+    valuePropHeading: "Why Every Girl Needs This Necklace",
+    valuePropHeadingAr: "لماذا تحتاجين هذه القلادة؟",
+    valuePropSubheading:
+      "More than an accessory — it's a symbol of transformation, hope, and effortless beauty. Perfect alone or layered.",
+    valuePropSubheadingAr:
+      "أكثر من مجرد إكسسوار — إنها رمز للتحول والأمل والجمال الطبيعي. مثالية وحدها أو منسقة مع قطع أخرى.",
+    valueProps: [
+      {
+        title: "Irresistible Crystal Radiance",
+        titleAr: "بريق كريستالي لا يُقاوَم",
+        desc: "Micro-pave zircon crystals catch light from every angle, delivering a luxury look that rivals fine jewelry at a fraction of the cost.",
+        descAr: "أحجار الزركون الدقيقة تلتقط الضوء من كل الاتجاهات، لتمنحك مظهر المجوهرات الفاخرة بسعر في متناول الجميع.",
+        iconName: "Sparkles",
+      },
+      {
+        title: "The Perfect Meaningful Gift",
+        titleAr: "الهدية المعبرة والمميزة",
+        desc: "Butterflies symbolise transformation, hope, and rebirth — a deeply personal and popular gift for birthdays, Eid, and anniversaries.",
+        descAr: "الفراشة رمز للتحول والأمل والولادة من جديد — هدية شخصية ومحببة لأعياد الميلاد والعيد وذكريات الزواج.",
+        iconName: "Gift",
+      },
+      {
+        title: "Collarbone-Perfect Length",
+        titleAr: "طول مثالي لخط الترقوة",
+        desc: "The 45 cm chain is designed specifically to sit right on the collarbone — effortlessly elegant and easy to layer with other pieces.",
+        descAr: "السلسلة 45 سم مصممة خصيصاً لتستقر على خط الترقوة بشكل مثالي — أناقة عفوية وسهلة التنسيق مع أي قطعة أخرى.",
+        iconName: "Gem",
+      },
+      {
+        title: "Featherlight at 15g",
+        titleAr: "خفيفة كالريشة بوزن 15 غرام",
+        desc: "At only 15 grams, the butterfly pendant rests comfortably all day without any neck strain. Wear it from morning to midnight.",
+        descAr: "بوزن 15 غرام فقط، تستقر القلادة براحة تامة طوال اليوم دون أي ثقل على الرقبة. تلبسيها من الصباح للمساء.",
+        iconName: "Feather",
+      },
+    ],
+
+    spotlightHeading: "A Wing of Light on Every Look",
+    spotlightHeadingAr: "جناح من الضوء على كل إطلالة",
+    spotlightSubheading:
+      "The Crystal Butterfly isn't just jewelry — it's a mood, a memory, and a moment frozen in light.",
+    spotlightSubheadingAr:
+      "قلادة الفراشة الكريستالية ليست مجرد مجوهرات — إنها حالة مزاجية وذكرى ولحظة مجمدة في الضوء.",
+    spotlightPanels: [
+      {
+        image: butterflySpot1,
+        label: "Made for Algeria",
+        labelAr: "صُنعت من أجل الجزائر",
+        caption: "Delivered to all 58 wilayas across Algeria — your butterfly is only an order away.",
+        captionAr: "توصيل لجميع ولايات الجزائر الـ58 — فراشتك على بعد طلب واحد فقط.",
+        tag: "Nationwide Delivery",
+        tagAr: "توصيل لجميع الولايات",
+        color: "#FF6C84",
+      },
+      {
+        image: butterflySpot2,
+        label: "Everyday Elegance",
+        labelAr: "أناقة يومية",
+        caption: "Lightweight at just 15g — it sits so delicately on your collarbone you'll forget it's there until the compliments start.",
+        captionAr: "خفيفة 15 غرام فقط — تستقر على ترقوتك بنعومة ستنسينها حتى تبدأ المديح.",
+        tag: "All-Day Comfort",
+        tagAr: "راحة طوال اليوم",
+        color: "#9B6DFF",
+      },
+      {
+        image: butterflySpot3,
+        label: "A Gift Worth Giving",
+        labelAr: "هدية تستحق أن تُقدَّم",
+        caption: "Butterflies symbolise hope, transformation, and new beginnings — a gift that carries meaning beyond the beautiful packaging.",
+        captionAr: "الفراشة رمز الأمل والتحول والبداية الجديدة — هدية تحمل معنى يتجاوز تغليفها الجميل.",
+        tag: "Gift-Ready",
+        tagAr: "جاهزة للإهداء",
+        color: "#FD8935",
+      },
+    ],
+
+    comparisonHeading: "Crystal Butterfly vs. Generic Jewelry",
+    comparisonHeadingAr: "قلادتنا مقابل المجوهرات العادية",
+    comparisonRows: [
+      {
+        feature: "Crystal Quality",
+        featureAr: "جودة الكريستال",
+        ours: "High-grade zircon with micro-pave setting — maximum brilliance",
+        oursAr: "زركون عالي الجودة بإعداد ميكرو بافي — لمعان استثنائي",
+        others: "Cheap glass stones that dull after days",
+        othersAr: "حجارة زجاجية رخيصة تفقد بريقها بسرعة",
+      },
+      {
+        feature: "Chain",
+        featureAr: "السلسلة",
+        ours: "Gold-plated link chain, 45 cm — perfect collarbone length",
+        oursAr: "سلسلة حلقات مطلية بالذهب، 45 سم — طول مثالي للترقوة",
+        others: "Thin, tarnishing chain with no standard length",
+        othersAr: "سلسلة رفيعة تتآكل ولا طول محدد لها",
+      },
+      {
+        feature: "Weight",
+        featureAr: "الوزن",
+        ours: "Only 15g — comfortable all day, every day",
+        oursAr: "15 غرام فقط — مريحة طوال اليوم وكل يوم",
+        others: "Heavy metals cause neck strain and discomfort",
+        othersAr: "معادن ثقيلة تسبب ألم وتعب للرقبة",
+      },
+      {
+        feature: "Design",
+        featureAr: "التصميم",
+        ours: "Detailed butterfly with gold-plated setting — luxurious Y2K aesthetic",
+        oursAr: "فراشة مفصلة بإطار ذهبي — جمالية Y2K فاخرة",
+        others: "Generic flat pendants with no detail or character",
+        othersAr: "قلادات مستوية عادية بلا تفاصيل أو طابع مميز",
+      },
+      {
+        feature: "Color Options",
+        featureAr: "خيارات الألوان",
+        ours: "Blue, Purple & Pink — choose your vibe",
+        oursAr: "أزرق، بنفسجي وردي — اختاري لونك المفضل",
+        others: "One colour only, no personalisation",
+        othersAr: "لون واحد فقط، لا خيارات تناسبك",
+      },
+    ],
+
+    reviewsHeading: "Loved by Jewellery Fans Across Algeria",
+    reviewsHeadingAr: "أحبتها عاشقات المجوهرات في كل الجزائر",
+    reviews: [
+      {
+        id: "bf1",
+        name: "هناء ب.",
+        title: "Wore it and got stopped twice in one day!",
+        titleAr: "لبستها وقفوني مرتين في يوم واحد!",
+        review: "I ordered the purple one and it's absolutely magical. The crystals sparkle so much in sunlight — everyone at work kept asking where I got it. Lightweight, comfortable, and looks way more expensive than it is. Will be ordering the blue one next!",
+        reviewAr: "طلبت البنفسجية وراهي سحرية بصح. الكريستال تبرق بزاف في ضوء الشمس — قاع الناس في الخدمة سقساوني منين شريتها. خفيفة ومريحة وتبان بزاف غالية كثر ما هي. غادي نطلب الزرقاء كيف كيف!",
+        rating: 5,
+        date: "July 12, 2026",
+        dateAr: "12 جويلية 2026",
+        helpfulCount: 52,
+        image: revButterfly1,
+      },
+      {
+        id: "bf2",
+        name: "إيمان ر.",
+        title: "The perfect birthday gift for my sister",
+        titleAr: "كادو عيد ميلاد مثالي لأختي",
+        review: "Bought the blue butterfly for my sister's birthday and she absolutely loved it. The packaging was beautiful and she cried when she opened it. The crystals are incredibly shiny and the gold chain is elegant. Highly recommend!",
+        reviewAr: "شريت الفراشة الزرقاء لأختي في عيد ميلادها وعجبتها بزاااف. التغليف كان روعة وبكات ملي فتحتها. الكريستالات بزاف بزاف تلمع والسلسلة الذهبية أنيقة. نوصي بيها بزاف!",
+        rating: 5,
+        date: "July 8, 2026",
+        dateAr: "8 جويلية 2026",
+        helpfulCount: 41,
+        image: revButterfly2,
+      },
+      {
+        id: "bf3",
+        name: "سلمى ح.",
+        title: "Exactly as shown, fast delivery!",
+        titleAr: "بالضبط كما في الصور، توصيل سريع!",
+        review: "Ordered the pink version and it arrived in 3 days to Oran. The butterfly is even prettier in person — the crystals catch every ray of light. Perfect for layering with other necklaces. I've been wearing it every single day since it arrived!",
+        reviewAr: "طلبت النسخة الوردية ووصلت في 3 أيام لوهران. الفراشة بزاف شابة في الحقيقة أكثر من التصاور — الكريستالات تعكس كل ضوء. مثالية للتنسيق مع سلاسل أخرى. نلبسها كل يوم من يوم ما وصلت!",
+        rating: 5,
+        date: "July 5, 2026",
+        dateAr: "5 جويلية 2026",
+        helpfulCount: 35,
+        image: revButterfly3,
+      },
+    ],
+
+    featuresHeading: "Designed to Dazzle",
+    featuresHeadingAr: "مصممة لتبهر وتخطف الأنظار",
+    features: [
+      {
+        title: "Micro-Pave Zircon Crystals",
+        titleAr: "كريستال زركون بتقنية ميكرو بافي",
+        desc: "High-grade zircon crystals set with precision micro-pave technique deliver maximum sparkle and a luxury finish that catches every light.",
+        descAr: "أحجار زركون عالية الجودة مثبتة بتقنية ميكرو بافي الدقيقة، تمنحك أقصى قدر من اللمعان وإنهاء فاخر يلتقط كل ضوء.",
+        iconName: "Sparkles",
+      },
+      {
+        title: "Symbol of Hope & Transformation",
+        titleAr: "رمز الأمل والتحول والبداية الجديدة",
+        desc: "Butterflies carry deep meaning — transformation, hope, and rebirth. A gift that says far more than words ever could.",
+        descAr: "الفراشة تحمل معاني عميقة — التحول والأمل والولادة من جديد. هدية تقول أكثر بكثير مما تستطيع الكلمات قوله.",
+        iconName: "Gift",
+      },
+      {
+        title: "Gold-Plated, Skin-Safe",
+        titleAr: "مطلية بالذهب وآمنة للبشرة",
+        desc: "Zinc alloy base with a premium gold-plated finish. Hypoallergenic and safe for sensitive skin — wear worry-free every day.",
+        descAr: "قاعدة سبيكة زنك مع طلاء ذهبي فاخر. مضادة للحساسية وآمنة للبشرة الحساسة — تلبسيها كل يوم بلا أي قلق.",
+        iconName: "ShieldCheck",
+      },
+    ],
+
+    faqs: [
+      {
+        question: "What is the pendant made of?",
+        questionAr: "مما تصنع القلادة؟",
+        answer: "The butterfly pendant is made from a zinc alloy base with a premium gold-plated finish. The wings are set with high-quality zircon crystals using a micro-pave technique that maximises brilliance and sparkle. The body of the butterfly features additional small zircon accents. Total gross weight is just 15g, making it ultra-comfortable for all-day wear.",
+        answerAr: "القلادة مصنوعة من قاعدة سبيكة زنك مع طلاء ذهبي فاخر. أجنحة الفراشة مرصعة بأحجار زركون عالية الجودة بتقنية ميكرو بافي التي تعظم البريق واللمعان. جسم الفراشة يحتوي على تفاصيل زركون إضافية. الوزن الإجمالي 15 غرام فقط، مما يجعلها مريحة للغاية طوال اليوم.",
+      },
+      {
+        question: "What colour options are available?",
+        questionAr: "ما هي خيارات الألوان المتاحة؟",
+        answer: "The Crystal Butterfly Necklace is available in three stunning crystal colours: Blue (ocean-inspired, vibrant teal-to-navy gradient), Purple (romantic violet-to-magenta shimmer), and Pink (soft blush aurora with light-catching iridescence). All variants come on the same elegant gold-plated chain.",
+        answerAr: "قلادة الفراشة الكريستالية متوفرة بثلاثة ألوان مذهلة: أزرق (مستوحى من المحيط، تدرج من الأزرق المائي إلى الأزرق الداكن)، بنفسجي (توهج رومانسي من البنفسجي إلى الفوشيا)، وردي (لمعان أورورا ناعم مع بريق قزحي). جميع الألوان تأتي على نفس السلسلة الذهبية الأنيقة.",
+      },
+      {
+        question: "How do I care for this necklace?",
+        questionAr: "كيف أعتني بهذه القلادة؟",
+        answer: "To maintain the brilliance of the crystals and the gold finish: avoid exposing the necklace to perfume, hairspray, water, and harsh chemicals. When not wearing it, store it in a dry pouch or box. Gently wipe the pendant with a soft, dry cloth to restore its sparkle. Avoid rubbing the crystals against abrasive surfaces.",
+        answerAr: "للحفاظ على بريق الكريستالات والطلاء الذهبي: تجنبي تعريض القلادة للعطر، ورذاذ الشعر، والماء، والمواد الكيميائية القاسية. عند عدم ارتدائها، احفظيها في كيس أو علبة جافة. امسحي القلادة برفق بقطعة قماش ناعمة وجافة لاستعادة بريقها. تجنبي حك الكريستالات بالأسطح الخشنة.",
+      },
+      {
+        question: "How long does shipping take?",
+        questionAr: "ما هي مدة الشحن؟",
+        answer: "All orders are processed and shipped within 24 hours. Standard delivery takes 2–5 business days across all 58 wilayas in Algeria. Cash on delivery — you pay when you receive your order.",
+        answerAr: "تتم معالجة جميع الطلبات وشحنها خلال 24 ساعة. يستغرق التوصيل العادي من يومين إلى 5 أيام عمل في جميع ولايات الجزائر الـ58. الدفع عند الاستلام — تدفعين عندما تستلمين طلبك.",
+      },
+    ],
+
+    ctaHeading: "Wear Your Wings, Own Your Story",
+    ctaHeadingAr: "ارتدي أجنحتك واكتبي قصتك",
+    ctaSubheading: "Crystal-bright, feather-light, and endlessly beautiful. Buy 2+ and save up to 55%.",
+    ctaSubheadingAr: "بريق الكريستال، خفة الريشة، وجمال لا ينتهي. اشتري قطعتين أو أكثر ووفري حتى 55%.",
   },
 };

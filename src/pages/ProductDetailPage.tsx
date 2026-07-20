@@ -66,7 +66,11 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
   const t = TRANSLATIONS[lang];
 
   const [activeImg, setActiveImg] = useState(0);
-  const [selectedChain, setSelectedChain] = useState("Silver");
+  const [selectedChain, setSelectedChain] = useState(() => {
+    if (!productId) return "Silver";
+    const p = PRODUCTS[productId];
+    return p?.chainOptions?.[0] ?? "Silver";
+  });
   const [selectedBundle, setSelectedBundle] = useState<"1" | "2" | "3">("2");
   const [spotlightActive, setSpotlightActive] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -464,34 +468,62 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ lang }) =>
                         </div>
                       )}
 
-                      {/* Chain Selection */}
-                      {product.chainOptions && product.chainOptions.length > 0 && (
-                        <div className="flex flex-col gap-2">
-                          <label className="font-bold text-slate-700 uppercase tracking-wider justify-start flex">
-                            {t.chain}: <span className="text-slate-900 mx-1">{selectedChain === "Gold" ? (lang === "ar" ? "ذهبي" : "Gold Tone") : (lang === "ar" ? "فضي" : "Silver Tone")}</span>
-                          </label>
-                          <div className="flex gap-3">
-                            {(lang === "ar" ? product.chainOptionsAr : product.chainOptions)?.map((chain, i) => {
-                              const engVal = product.chainOptions ? product.chainOptions[i] : chain;
-                              return (
-                                <button
-                                  type="button"
-                                  key={chain}
-                                  onClick={() => setSelectedChain(engVal)}
-                                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 font-bold transition-all duration-200 cursor-pointer ${
-                                    selectedChain === engVal
-                                      ? engVal === "Gold" ? "border-amber-500 bg-amber-50 text-amber-800" : "border-slate-700 bg-slate-50 text-slate-900"
-                                      : "border-slate-200 text-slate-500 hover:border-slate-300"
-                                  }`}
-                                >
-                                  <span className={`w-4 h-4 rounded-full inline-block border ${engVal === "Gold" ? "bg-gradient-to-br from-yellow-300 to-amber-500 border-amber-400" : "bg-gradient-to-br from-slate-300 to-slate-500 border-slate-400"}`} />
-                                  {chain}
-                                </button>
-                              );
-                            })}
+                      {/* Chain / Colour Selection */}
+                      {product.chainOptions && product.chainOptions.length > 0 && (() => {
+                        const swatchMap: Record<string, string> = {
+                          Gold: "bg-gradient-to-br from-yellow-300 to-amber-500 border-amber-400",
+                          Silver: "bg-gradient-to-br from-slate-300 to-slate-500 border-slate-400",
+                          Blue: "bg-gradient-to-br from-sky-300 to-blue-600 border-blue-400",
+                          Purple: "bg-gradient-to-br from-violet-300 to-purple-600 border-purple-400",
+                          Pink: "bg-gradient-to-br from-pink-200 to-pink-500 border-pink-400",
+                        };
+                        const activeMap: Record<string, string> = {
+                          Gold: "border-amber-500 bg-amber-50 text-amber-800",
+                          Silver: "border-slate-700 bg-slate-50 text-slate-900",
+                          Blue: "border-blue-500 bg-blue-50 text-blue-800",
+                          Purple: "border-purple-500 bg-purple-50 text-purple-800",
+                          Pink: "border-pink-500 bg-pink-50 text-pink-800",
+                        };
+                        const displayLabel = lang === "ar"
+                          ? (product.chainOptionsAr?.find((_, i) => product.chainOptions![i] === selectedChain) ?? selectedChain)
+                          : selectedChain;
+                        const isColorChoice = product.chainOptions.some(o => ["Blue", "Purple", "Pink"].includes(o));
+                        return (
+                          <div className="flex flex-col gap-2">
+                            <label className="font-bold text-slate-700 uppercase tracking-wider justify-start flex">
+                              {isColorChoice ? (lang === "ar" ? "اللون" : "Colour") : t.chain}:
+                              <span className="text-slate-900 mx-1">{displayLabel}</span>
+                            </label>
+                            <div className="flex gap-3">
+                              {(lang === "ar" ? product.chainOptionsAr : product.chainOptions)?.map((chain, i) => {
+                                const engVal = product.chainOptions ? product.chainOptions[i] : chain;
+                                const swatchClass = swatchMap[engVal] ?? "bg-gradient-to-br from-slate-300 to-slate-500 border-slate-400";
+                                const activeClass = activeMap[engVal] ?? "border-slate-700 bg-slate-50 text-slate-900";
+                                return (
+                                  <button
+                                    type="button"
+                                    key={chain}
+                                    onClick={() => {
+                                      setSelectedChain(engVal);
+                                      // If this is a colour-choice product, sync the gallery image
+                                      if (isColorChoice && product.chainOptions) {
+                                        const idx = product.chainOptions.indexOf(engVal);
+                                        if (idx !== -1) setActiveImg(idx);
+                                      }
+                                    }}
+                                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 font-bold transition-all duration-200 cursor-pointer ${
+                                      selectedChain === engVal ? activeClass : "border-slate-200 text-slate-500 hover:border-slate-300"
+                                    }`}
+                                  >
+                                    <span className={`w-4 h-4 rounded-full inline-block border ${swatchClass}`} />
+                                    {chain}
+                                  </button>
+                                );
+                              })}
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        );
+                      })()}
 
                     {/* Bundle Selection */}
                     <div className="flex flex-col gap-2">
